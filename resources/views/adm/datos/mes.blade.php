@@ -1,6 +1,6 @@
 @extends('layouts.tabla')
 
-@section('ttitle', 'Evaluación DANgo Julio 2020')
+@section('ttitle', 'Evaluación DANgo 2020')
 
 @section('buttons')
 <br>
@@ -37,6 +37,12 @@
 <th>Descripción</th>
 <th>Código</th>
 <th>Descripción</th>
+<th>Enero</th>
+<th>Febrero</th>
+<th>Marzo</th>
+<th>Abril</th>
+<th>Mayo</th>
+<th>Junio</th>
 <th>Julio</th>
 @endsection
 
@@ -46,6 +52,12 @@
 <th>Descripción</th>
 <th>Código</th>
 <th>Descripción</th>
+<th>Enero</th>
+<th>Febrero</th>
+<th>Marzo</th>
+<th>Abril</th>
+<th>Mayo</th>
+<th>Junio</th>
 <th>Julio</th>
 @endsection
 
@@ -76,6 +88,24 @@
     </td>
 
 
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
     <td>
         Riesgo Bajo
     </td>
@@ -110,6 +140,24 @@
     <td>
         Riesgo Bajo con Observacion
     </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
 </tr>
 <tr>
     <td>
@@ -137,6 +185,24 @@
     </td>
 
 
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
     <td>
         Riesgo Bajo
     </td>
@@ -170,6 +236,24 @@
     <td>
         Riesgo Bajo
     </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
 </tr>
 <tr>
     <td>
@@ -197,6 +281,24 @@
     </td>
 
 
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
     <td>
         Riesgo Bajo
     </td>
@@ -230,6 +332,24 @@
     <td>
         Riesgo Bajo
     </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
 </tr>
 <tr>
     <td>
@@ -257,6 +377,24 @@
     </td>
 
 
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
     <td>
         Riesgo Bajo
     </td>
@@ -290,6 +428,24 @@
     <td>
         Riesgo Bajo
     </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
 </tr>
 <tr>
     <td>
@@ -317,6 +473,24 @@
     </td>
 
 
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
     <td>
         Riesgo Bajo
     </td>
@@ -350,6 +524,24 @@
     <td>
         Riesgo Bajo
     </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
 </tr>
 <tr>
     <td>
@@ -377,6 +569,24 @@
     </td>
 
 
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
     <td>
         Riesgo Bajo
     </td>
@@ -411,6 +621,24 @@
     <td>
         Riesgo Bajo con Observacion
     </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
 </tr>
 <tr>
     <td>
@@ -442,6 +670,24 @@
     <td>
         Riesgo Bajo con Observacion
     </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
 </tr>
 <tr>
     <td>
@@ -470,6 +716,24 @@
         </th>
 
 
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
     <td>
         Riesgo Bajo
     </td>
@@ -504,6 +768,24 @@
     <td>
         Riesgo Bajo
     </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
 </tr>
 <tr>
     <td>
@@ -532,6 +814,24 @@
     </td>
 
 
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
     <td>
         Riesgo Bajo
     </td>
@@ -565,6 +865,24 @@
     <td>
         Riesgo Bajo
     </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
 </tr>
 <tr>
     <td>
@@ -592,6 +910,24 @@
     </td>
 
 
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
     <td>
         Riesgo Bajo
     </td>
@@ -625,6 +961,24 @@
     <td>
         Riesgo Bajo
     </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
 </tr>
 <tr>
     <td>
@@ -652,6 +1006,24 @@
     </td>
 
 
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
+    <td>
+        Riesgo Bajo
+    </td>
     <td>
         Riesgo Bajo
     </td>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Asignacion;
 use App\Deposito;
+use App\Http\Controllers\AutoevaluacionController;
 
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -20,6 +21,7 @@ class AsignacionController extends Controller
     public function index()
     {
         $asignaciones = Asignacion::all();
+        
         return view('adm.asignaciones.listar', compact('asignaciones'));
     }
 
@@ -48,10 +50,15 @@ class AsignacionController extends Controller
 
         $asignacion->save();
 
+        (new AutoevaluacionController)->store($asignacion->id);
+
         Alert::success('Asignación', 'Se ha creado correctamente la asignación');
 
         return redirect()->route('adm.asignaciones.listar');
     }
+
+
+    
 
     public function edit($id)
     {

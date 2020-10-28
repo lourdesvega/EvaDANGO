@@ -29,7 +29,7 @@ class Deposito extends Model
         return $this->belongsTo('App\Zona');
     }
 
-    public function autoevaluaciones()
+    public function autoevaluaciones() 
     {
         return $this->hasMany('App\Autoevaluacion');
     }

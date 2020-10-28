@@ -27,15 +27,6 @@
         @endswitch
         @endisset
 
-        @empty($autoev)
-        No creado
-        </p>
-        <form method="POST" action="{{route('usr.autoevaluaciones.guardar', $asignacion->id)}}">
-            @csrf
-            <button type="submit" class="btn btn-primary">Empezar autoevaluación</button>
-        </form>
-        @endempty
-
     </div>
 </div>
 @endisset

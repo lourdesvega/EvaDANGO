@@ -9,7 +9,7 @@ class Evidencia extends Model
 
     protected $table = 'evidencias';
 
-    protected $fillable = ['nombre', 'formato', 'ubicacion'];
+    protected $fillable = ['detalle_id','nombre', 'formato', 'ubicacion'];
 
     public function detalle()
     {

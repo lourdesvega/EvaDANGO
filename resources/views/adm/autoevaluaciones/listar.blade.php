@@ -1,5 +1,9 @@
 @extends('layouts.tabla')
-@section('ttitle','Autoevaluación por depósito Julio de 2020')
+
+@section('ttitle')
+Autoevaluación por depósito {{$asignacion->mes .' de '.$asignacion->anio}}
+
+@endsection
 
 @section('buttons')
 <br>
@@ -9,14 +13,14 @@
     <a class="nav-link" href="#">Resultados por mes</a>
     <a class="nav-link" href="#">Resultados gráficos</a>
     <a class="nav-link" href="#">Riesgos gráficos</a>
-    
+
 </nav>
 @endsection
 
 
 @section('thead')
-<th>Déposito</th>
 <th>Región</th>
+<th>Déposito</th>
 <th>Encargado</th>
 <th>Fecha entrega</th>
 <th>Estatus</th>
@@ -24,8 +28,8 @@
 @endsection
 
 @section('tfoot')
-<th>Déposito</th>
 <th>Región</th>
+<th>Déposito</th>
 <th>Encargado</th>
 <th>Fecha entrega</th>
 <th>Estatus</th>
@@ -33,21 +37,14 @@
 @endsection
 
 @section('tbody')
-<tr onclick="location.href='{{route('adm.autoevaluaciones.ver')}}'">
-    <td>Culiacán</td>
-    <td>Region I</td>
-    <td>---</td>
-    <td>1-Agosto-2020</td>
-    <td>Entregado</td>
+@foreach ($asignacion->autoevaluaciones as $autoevaluacion)
+<tr onclick="location.href='{{route('adm.autoevaluaciones.ver', $autoevaluacion->id)}}'">
+    <td>{{$autoevaluacion->deposito->zona->nombre}}</td>
+    <td>{{$autoevaluacion->deposito->nombre}}</td>
+    <td>{{$autoevaluacion->deposito->user->name.' '.$autoevaluacion->deposito->user->apellidos}}</td>
+    <td>{{$autoevaluacion->fecgaEntrega}}</td>
+    <td>{{$autoevaluacion->estatus==1 ? 'Completado' : 'En edición'}}</td>
     <td></td>
 </tr>
-<tr onclick="location.href='{{route('adm.autoevaluaciones.ver')}}'">
-    <td>Oregon</td>
-    <td>Region I</td>
-    <td>---</td>
-    <td>1-Agosto-2020</td>
-    <td>Entregado</td>
-    <td></td>
-</tr>
-
+@endforeach
 @endsection

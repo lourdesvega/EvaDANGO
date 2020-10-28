@@ -115,18 +115,10 @@ Route::delete('/usr/responsables/{id}', 'ResponsableController@destroy')->name('
 
 
 
+Route::get('/adm/autoevaluaciones/listar/{id}', 'AutoevaluacionAdmController@index')->name('adm.autoevaluaciones.listar');
 
-Route::get('/adm/autoevaluaciones/listar', function () {
-    return view('adm.autoevaluaciones.listar');
-})->name('adm.autoevaluaciones.listar');
+Route::get('/adm/autoevaluaciones/ver/{id}', 'AutoevaluacionAdmController@show')->name('adm.autoevaluaciones.ver');
 
-Route::get('/adm/autoevaluaciones/ver', function () {
-    return view('adm.autoevaluaciones.ver');
-})->name('adm.autoevaluaciones.ver');
-
-Route::get('/adm/autoevaluaciones/detalle', function () {
-    return view('adm.autoevaluaciones.detalle');
-})->name('adm.autoevaluaciones.detalle');
 
 
 
@@ -147,10 +139,13 @@ Route::get('/adm/datos/mes', function () {
     return view('adm.datos.mes');
 })->name('adm.datos.mes');
 
+//Grafica de resultados  mes
+Route::get('/adm/datos/resultados', 'ResultadosMesController@graficas')->name('adm.datos.resultados');
 
-Route::get('/adm/datos/resultados', function () {
-    return view('adm.datos.resultados');
-})->name('adm.datos.resultados');
+
+
+//Ver datos
+Route::get('/adm/datos/{asignacion}/{zona}', 'DatosController@region')->name('adm.datos.datos');
 
 Route::get('/adm/datos/riesgos', function () {
     return view('adm.datos.riesgos');
@@ -162,13 +157,6 @@ Route::get('/adm/datos/riesgos', function () {
 Route::get('/usr/asignaciones', 'AsignacionUsrController@index')->name('usr.asignaciones.listar');
 
 
-Route::get('/usr/detalle/editar', function () {
-    return view('usr.asignaciones.ver');
-})->name('usr.asignaciones.ver');
-
-
-
-
 
 
 Route::get('/usr/autoevaluaciones/{id}', 'AutoevaluacionController@index')->name('usr.autoevaluaciones.listar');
@@ -178,14 +166,35 @@ Route::get('/usr/autoevaluaciones/{id}', 'AutoevaluacionController@index')->name
 
 Route::post('/usr/autoevaluaciones/{id}', 'AutoevaluacionController@store')->name('usr.autoevaluaciones.guardar');
 
-
-
-
-
-Route::post('/usr/detalleAutoevaluaciones/{autoevaluacion}/{control}', 'DetalleController@store')->name('usr.detalle.guardar');
+Route::get('usr/autoevaluacion/contar/{id}', 'AutoevaluacionController@contar')->name('usr.autoevaluaciones.contar');
 
 Route::get('/usr/detalleAutoevaluaciones/{id}/editar', 'DetalleController@edit')->name('usr.detalle.editar');
 
+Route::put('/usr/detalleAutoevaluaciones/{id}', 'DetalleController@update')->name('usr.detalle.actualizar');
+
+Route::put('/usr/autoevaluaciones/{id}/enviar', 'AutoevaluacionController@update')->name('usr.autoevaluaciones.enviar');
+
+
+
+
+
+
+//Evidencias
+
+
+//Asignaciones
+Route::get('/usr/evidencias', 'EvidenciaController@index')->name('usr.evidencias.listar');
+
+Route::get('/usr/evidencias/crear', 'EvidenciaController@create')->name('usr.evidencias.crear');
+
+Route::post('/usr/evidencias/{id}/subir', 'EvidenciaController@store')->name('usr.evidencias.guardar');
+
+Route::get('/usr/evidencias/{id}/editar', 'EvidenciaController@edit')->name('usr.evidencias.editar');
+
+Route::put('/usr/evidencias/{id}', 'EvidenciaController@update')->name('usr.evidencias.actualizar');
+
+Route::post('/usr/evidencias/eliminar/{id}', 'EvidenciaController@destroy')->name('usr.evidencias.eliminar');
+
 
 Route::get('/usr/autoevaluaciones/ver/ya', function () {
     return view('usr.autoevaluaciones.ver');
@@ -193,10 +202,6 @@ Route::get('/usr/autoevaluaciones/ver/ya', function () {
 
 
 
-
-Route::get('/usr/autoevaluaciones/ver/ya', function () {
-    return view('usr.autoevaluaciones.ver');
-})->name('usr.autoevaluaciones.ver');
 
 
 

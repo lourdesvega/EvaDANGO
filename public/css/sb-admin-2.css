@@ -10711,6 +10711,13 @@ a:focus {
   padding: 0.375rem 0.75rem;
 }
 
+.truncate-text-table{
+  width: 100px; 
+  white-space: nowrap; 
+  overflow: hidden;   
+  text-overflow: ellipsis;
+}
+
 .btn-icon-split .text {
   display: inline-block;
   padding: 0.375rem 0.75rem;

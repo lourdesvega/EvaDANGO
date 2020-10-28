@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>SB Admin 2 - Blank</title>
 
@@ -47,7 +48,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Dashboard</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -142,6 +144,24 @@
                 </div>
             </li>
 
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="true"
+                    aria-controls="collapseEight">
+                    <i class="fas fa-user"></i>
+                    <span>Datos</span>
+                </a>
+                <div id="collapseEight" class="collapse" aria-labelledby="headingSix" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{route('adm.datos.deficiencias')}}">Deficiencias</a>
+                        <a class="collapse-item" href="{{route('adm.datos.depositos')}}">Depositos</a>
+                        <a class="collapse-item" href="{{route('adm.datos.mes')}}">Mes</a>
+                        <a class="collapse-item" href="{{route('adm.datos.resultados')}}">Resultados</a>
+                        <a class="collapse-item" href="{{route('adm.datos.riesgos')}}">Riesgos</a>
+                    </div>
+                </div>
+            </li>
+
             <hr class="sidebar-divider">
 
 
@@ -165,7 +185,11 @@
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider">
 
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
 
         </ul>
         <!-- End of Sidebar -->
@@ -403,6 +427,11 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
+
+    <script src="{{asset('vendor/sweetalert/sweetalert.all.js')}}"></script>
+
+    <script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
+    <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
     @yield('scripts')
 

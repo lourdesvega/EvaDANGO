@@ -8,7 +8,7 @@
         <div class="row justify-content-md-center">
             <div class="col-lg-6">
                 <div class="card mb-auto">
-                    <a href="{{route('graficos.riesgo.region')}}">
+                    <a href="{{route('adm.datos.deficiencias')}}">
                     <canvas id="nacional"></canvas>
                     </a>
                 </div>

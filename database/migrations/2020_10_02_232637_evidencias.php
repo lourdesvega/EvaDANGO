@@ -18,9 +18,8 @@ class Evidencias extends Migration
             $table->unsignedBigInteger('detalle_id'); 
             $table->foreign('detalle_id')->references('id')->on('detalleAutoevaluaciones');
             $table->string('nombre');
-            $table->string('formato');
+            $table->string('nomOriginal');
             $table->string('ubicación');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class Evidencias extends Migration
     public function down()
     {
         Schema::dropIfExists('evidencias');
-        Schema::softDeletes('evidencias');
+
     }
 }

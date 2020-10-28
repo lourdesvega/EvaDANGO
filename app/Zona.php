@@ -18,7 +18,7 @@ class Zona extends Model
 
     public function depositos()
     {
-        return $this->has('App\Deposito');
+        return $this->hasMany('App\Deposito');
     }
 }
 

@@ -46,7 +46,7 @@
     <td>{{$usuario->deposito ==  null ? '' : $usuario->deposito->estado }}</td>
     <td>{{$usuario->deposito ==  null ? '' : $usuario->deposito->municipio}}</td>
     <td>{{$usuario->activo== 1 ? 'Sí' :'No' }} </td>
-    <form action="{{route('adm.usuarios.eliminar', $usuario->id)}}" method="POST">
+    <form id="form{{$deposito->id}}" action="{{route('adm.usuarios.eliminar', $usuario->id)}}" method="POST">
         @csrf
         @method('DELETE')
 
@@ -56,7 +56,7 @@
                     <i class="fas fa-pen"></i>
                 </span>
             </a>
-            <button class="btn btn-link" type="submit">
+        <button id="{{$usuario->id}}" class="btn btn-link" type="submit">
                 <span style="color: red">
                     <i class="fas fa-trash-alt"></i>
                 </span>
@@ -67,5 +67,36 @@
 </tr>
 @endforeach
 
+
+@endsection
+
+
+@section('script')
+<script>
+    $(function () {
+        $('body').on('click', '.delete-confirm', function (event) {
+            event.preventDefault();
+        const url = $(this).attr('href');
+
+            var id = this.id;
+                Swal.fire({
+                title: 'Encargado',
+                text: "¿Desea eliminar al encargado?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí',
+                cancelButtonText: 'No',
+                }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById("form"+id).submit();
+            } 
+                
+         })
+        });
+ });
+
+</script>
 
 @endsection

@@ -84,6 +84,7 @@ class ResponsableController extends Controller
 
     public function destroy($id)
     {
+
         Responsable::find($id)->delete();
         Alert::success('Responsable', 'Se ha eliminado correctamente el responsable');
         return redirect()->route('usr.responsables.listar');

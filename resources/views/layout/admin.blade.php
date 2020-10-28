@@ -138,8 +138,8 @@
                 </div>
             </li>
 
-            <hr class="sidebar-divider">
 
+            <hr class="sidebar-divider">
 
             <li class="nav-item">
                 <a class="nav-link" href="{{route('usr.asignaciones.listar')}}">
