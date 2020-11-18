@@ -11,7 +11,7 @@ Autoevaluación por depósito {{$asignacion->mes .' de '.$asignacion->anio}}
     <a class="nav-link active" href="#">Autoevaluaciones</a>
     <a class="nav-link" href="#">Resultados por depot</a>
     <a class="nav-link" href="#">Resultados por mes</a>
-    <a class="nav-link" href="#">Resultados gráficos</a>
+    <a class="nav-link" href="{{route('adm.datos.resultados', $asignacion->id)}}">Resultados gráficos mes</a>
     <a class="nav-link" href="#">Riesgos gráficos</a>
 
 </nav>

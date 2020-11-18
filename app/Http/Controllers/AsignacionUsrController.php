@@ -17,10 +17,8 @@ class AsignacionUsrController extends Controller
 
     public function index()
     {
-        $asignacion = Asignacion::where('activo', 1)->where('estatus', 0)->orWhere('estatus', 1)->first();
-       // dd($asignacion);
-        $asignaciones = Asignacion::where('activo', 1)->where('estatus', 2)->get();
-        return view('usr.asignaciones.listar', compact('asignaciones', 'asignacion'));
+        $autoevaluaciones = auth()->user()->deposito->autoevaluaciones->where('activo',1);
+        return view('usr.asignaciones.listar', compact('autoevaluaciones'));
     }
 
     public function verificarResponsable($responsable)

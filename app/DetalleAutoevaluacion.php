@@ -44,4 +44,6 @@ class DetalleAutoevaluacion extends Model
     {
         return $this->hasMany('App\Evidencia','detalle_id');
     }
+
+
 }

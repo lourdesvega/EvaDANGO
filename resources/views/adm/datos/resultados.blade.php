@@ -1,63 +1,91 @@
 @extends('layouts.app')
 @section('content')
-    <script src="{{asset('vendor/chart.js/Chart.js')}}" charset="utf-8"></script>
-    <script src="{{asset('vendor/chart.js/chartjs-plugin-datalabels.min.js')}}" charset="utf-8"></script>
-    <h1 class="h3 mb-2 text-gray-800 text-center">Resultados graficos Julio de 2020</h1>
-    <br>
-<div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card mb-auto">
-                    <canvas id="nacional"></canvas>
-                 </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="card">
-                    <canvas id="controlesRiesgo"></canvas>
-                </div>
-            </div>
-        </div>
+
+<script src="{{asset('vendor/chart.js/Chart.js')}}" charset="utf-8"></script>
+<script src="{{asset('vendor/chart.js/chartjs-plugin-datalabels.min.js')}}" charset="utf-8"></script>
+<h1 class="h3 mb-2 text-gray-800 text-center">Resultados gráficos de {{$asignacion->mes.' de '.$asignacion->anio}}</h1>
 <br>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card mb-auto">
-                <canvas id="region1"></canvas>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="card">
-                <canvas id="region2"></canvas>
-            </div>
-        </div>
-    </div>
+<nav style="background: white;" class="nav nav-pills nav-justified">
+    <a class="nav-link" href="#">Autoevaluaciones</a>
+    <a class="nav-link" href="#">Resultados por depot</a>
+    <a class="nav-link" href="#">Resultados por mes</a>
+    <a class="nav-link active" href="#">Resultados gráficos</a>
+    <a class="nav-link" href="#">Riesgos gráficos</a>
+</nav>
+
 <br>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card mb-auto">
-                <canvas id="region3"></canvas>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="card">
-                <canvas id="region4"></canvas>
-            </div>
-        </div>
-    </div>
-<br>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card mb-auto">
-                <canvas id="region5"></canvas>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="card">
-                <canvas id="region6"></canvas>
+
+<div class="row my-md-n3">
+    <div class="col-md-6 py-md-3 py-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <canvas id="nacional"></canvas>
             </div>
         </div>
     </div>
 
+    
+    <div class="col-md-6 py-md-3 py-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <canvas id="controlesRiesgo"></canvas>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<div class="row my-md-n3">
+    <div class="col-md-6 py-md-3 py-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <canvas id="region1"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 py-md-3 py-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <canvas id="region2"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row my-md-n3">
+    <div class="col-md-6 py-md-3 py-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <canvas id="region3"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 py-md-3 py-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <canvas id="region4"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row my-md-n3">
+    <div class="col-md-6 py-md-3 py-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <canvas id="region5"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 py-md-3 py-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <canvas id="region6"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     // Set new default font family and font color to mimic Bootstrap's default styling
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -70,7 +98,9 @@
         data: {
             labels: ["Bajo riesgo", "Riesgo Bajo con Observación", "Riesgo Alto"],
             datasets: [{
-                data: [87, 11, 2],
+                data: [{{
+                    $nacional[0]["rb"].','.$nacional[0]["rbo"].','.$nacional[0]["ra"]
+                }}],
                 backgroundColor: ['green', 'yellow', 'red'],
                 hoverBackgroundColor: ['green', 'yellow', 'red'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -97,7 +127,7 @@
                         var dataset = context.dataset;
                         var count = dataset.data.length;
                         var value = dataset.data[context.dataIndex];
-                        return value > count * 0.5;
+                        return value > count * 0.1;
                     },
                     font: {
                         weight: 'bold'
@@ -119,7 +149,11 @@
         data: {
             labels: ["Region I","Region II","Region III","Region IV","Region V","Region VI"],
             datasets: [{
-                data: [1.67, 1.43, 1.67, 0.63, 6.43, 0.63],
+                data: [
+                    {{
+                    $riesgos[0].','.$riesgos[1].','.$riesgos[2].','.$riesgos[3].','.$riesgos[4].','.$riesgos[5]
+                    }}
+                ],
                 backgroundColor: 'red',
                 hoverBackgroundColor: ['red'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -148,8 +182,17 @@
                         },
                         borderRadius: 4,
                         color: 'white',
+                        display: function (context) {
+                        var dataset = context.dataset;
+                        var count = dataset.data.length;
+                        var value = dataset.data[context.dataIndex];
+                        return value >= count * 0.01;
+                        },
 
-                        formatter: Math.round
+                        formatter: function(value, context) {
+                            return  Math.round(value*100)/100 ;
+                        }
+                             
                     }
                 }
         }
@@ -163,7 +206,11 @@
         data: {
             labels: ["Bajo riesgo", "Riesgo Bajo con Observación", "Riesgo Alto"],
             datasets: [{
-                data: [83, 14, 3],
+                data: [
+                    {{
+                       $region[0]->rb.','.$region[0]->rbo.','.$region[0]->ra
+                    }}
+                ],
                 backgroundColor: ['green', 'yellow', 'red'],
                 hoverBackgroundColor: ['green', 'yellow', 'red'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -190,7 +237,7 @@
                         var dataset = context.dataset;
                         var count = dataset.data.length;
                         var value = dataset.data[context.dataIndex];
-                        return value > count * 0.5;
+                        return value > count * 0.1;
                     },
                     font: {
                         weight: 'bold'
@@ -210,7 +257,9 @@
         data: {
             labels: ["Bajo riesgo", "Riesgo Bajo con Observación", "Riesgo Alto"],
             datasets: [{
-                data: [91, 7, 2],
+                data: [{{
+                       $region[1]->rb.','.$region[1]->rbo.','.$region[1]->ra
+                    }}],
                 backgroundColor: ['green', 'yellow', 'red'],
                 hoverBackgroundColor: ['green', 'yellow', 'red'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -237,7 +286,7 @@
                         var dataset = context.dataset;
                         var count = dataset.data.length;
                         var value = dataset.data[context.dataIndex];
-                        return value > count * 0.5;
+                        return value > count * 0.1;
                     },
                     font: {
                         weight: 'bold'
@@ -256,7 +305,11 @@
         data: {
             labels: ["Bajo riesgo", "Riesgo Bajo con Observación", "Riesgo Alto"],
             datasets: [{
-                data: [83, 13, 4],
+                data: [
+                    {{
+                       $region[2]->rb.','.$region[2]->rbo.','.$region[2]->ra
+                    }}
+                ],
                 backgroundColor: ['green', 'yellow', 'red'],
                 hoverBackgroundColor: ['green', 'yellow', 'red'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -283,7 +336,7 @@
                         var dataset = context.dataset;
                         var count = dataset.data.length;
                         var value = dataset.data[context.dataIndex];
-                        return value > count * 0.5;
+                        return value > count * 0.1;
                     },
                     font: {
                         weight: 'bold'
@@ -302,7 +355,11 @@
         data: {
             labels: ["Bajo riesgo", "Riesgo Bajo con Observación", "Riesgo Alto"],
             datasets: [{
-                data: [95, 5, 0],
+                data: [
+                    {{
+                       $region[3]->rb.','.$region[3]->rbo.','.$region[3]->ra
+                    }}
+                ],
                 backgroundColor: ['green', 'yellow', 'red'],
                 hoverBackgroundColor: ['green', 'yellow', 'red'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -329,7 +386,7 @@
                         var dataset = context.dataset;
                         var count = dataset.data.length;
                         var value = dataset.data[context.dataIndex];
-                        return value > count * 0.5;
+                        return value > count * 0.1;
                     },
                     font: {
                         weight: 'bold'
@@ -348,7 +405,11 @@
         data: {
             labels: ["Bajo riesgo", "Riesgo Bajo con Observación", "Riesgo Alto"],
             datasets: [{
-                data: [8, 14, 6],
+                data: [
+                    {{
+                       $region[4]->rb.','.$region[4]->rbo.','.$region[4]->ra
+                    }}
+                ],
                 backgroundColor: ['green', 'yellow', 'red'],
                 hoverBackgroundColor: ['green', 'yellow', 'red'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -375,7 +436,7 @@
                         var dataset = context.dataset;
                         var count = dataset.data.length;
                         var value = dataset.data[context.dataIndex];
-                        return value > count * 0.5;
+                        return value > count * 0.1;
                     },
                     font: {
                         weight: 'bold'
@@ -394,7 +455,12 @@
         data: {
             labels: ["Bajo riesgo", "Riesgo Bajo con Observación", "Riesgo Alto"],
             datasets: [{
-                data: [85, 14, 1],
+                data: [
+                    {{
+                       $region[5]->rb.','.$region[5]->rbo.','.$region[5]->ra
+                    }}
+
+                ],
                 backgroundColor: ['green', 'yellow', 'red'],
                 hoverBackgroundColor: ['green', 'yellow', 'red'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",

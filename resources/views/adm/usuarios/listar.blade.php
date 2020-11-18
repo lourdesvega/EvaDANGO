@@ -56,7 +56,7 @@
                     <i class="fas fa-pen"></i>
                 </span>
             </a>
-        <button id="{{$usuario->id}}" class="btn btn-link" type="submit">
+            <button id="{{$usuario->id}}" class="btn btn-link" type="submit">
                 <span style="color: red">
                     <i class="fas fa-trash-alt"></i>
                 </span>

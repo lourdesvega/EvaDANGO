@@ -25,4 +25,17 @@ class Asignacion extends Model
     {
         return $this->hasMany('App\Autoevaluacion');
     }
+
+
+    public function detallesAutoevaluacion()
+    {
+        return $this->hasManyThrough(
+            'App\DetalleAutoevaluacion',
+            'App\Autoevaluacion',
+            'asignacion_id', 
+            'autoevaluacion_id', 
+            'id', 
+            'id' 
+        );
+    }
 }

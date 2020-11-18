@@ -116,7 +116,6 @@ class AreaController extends Controller
 
     public function destroy($id)
     {
-
         Area::find($id)->delete();
         Alert::success('Área', 'Se ha eliminado correctamente el área');
         return redirect()->route('adm.areas.listar');

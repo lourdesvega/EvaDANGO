@@ -1,7 +1,7 @@
 @extends('layouts.tabla')
 
 @section('ttitle')
-{{'Autoevaluación del depósito de ' .$autoevaluacion->deposito->nombre.' del periodo de ' .$autoevaluacion->asignacion->mes .' del '.$autoevaluacion->asignacion->anio  }}
+{{'Autoevaluación de ' .$autoevaluacion->deposito->nombre.' de ' .$autoevaluacion->asignacion->mes .' de '.$autoevaluacion->asignacion->anio  }}
 @endsection
 
 @section('buttons')
@@ -10,7 +10,7 @@
     <a class="nav-link active" href="#">Autoevaluaciones</a>
     <a class="nav-link" href="#">Resultados por depot</a>
     <a class="nav-link" href="#">Resultados por mes</a>
-    <a class="nav-link" href="#">Resultados gráficos</a>
+    <a class="nav-link" href="{{route('adm.datos.resultados', $autoevalucion->id)}}">Resultados gráficos mes</a>
     <a class="nav-link" href="#">Riesgos gráficos</a>
 </nav>
 @endsection

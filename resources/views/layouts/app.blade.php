@@ -12,6 +12,8 @@
 
     <title>SB Admin 2 - Blank</title>
 
+    <link rel="icon" type="image/png" href="{{asset('img/title.png')}}">
+
     <!-- Custom fonts for this template-->
     <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
     <link
@@ -153,11 +155,8 @@
                 </a>
                 <div id="collapseEight" class="collapse" aria-labelledby="headingSix" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{route('adm.datos.deficiencias')}}">Deficiencias</a>
                         <a class="collapse-item" href="{{route('adm.datos.depositos')}}">Depositos</a>
-                        <a class="collapse-item" href="{{route('adm.datos.mes')}}">Mes</a>
-                        <a class="collapse-item" href="{{route('adm.datos.resultados')}}">Resultados</a>
-                        <a class="collapse-item" href="{{route('adm.datos.riesgos')}}">Riesgos</a>
+                        <a class="collapse-item" href="{{route('adm.datos.riesgos',2020)}}">Riesgos</a>
                     </div>
                 </div>
             </li>

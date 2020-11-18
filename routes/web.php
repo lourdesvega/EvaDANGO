@@ -126,33 +126,41 @@ Route::get('/adm/autoevaluaciones/ver/{id}', 'AutoevaluacionAdmController@show')
 
 
 
-Route::get('/adm/datos/deficiencias', function () {
-    return view('adm.datos.deficiencias');
-})->name('adm.datos.deficiencias');
-
 Route::get('/adm/datos/depositos', function () {
     return view('adm.datos.depositos');
 })->name('adm.datos.depositos');
 
 
-Route::get('/adm/datos/mes', function () {
-    return view('adm.datos.mes');
-})->name('adm.datos.mes');
+Route::get('/adm/datos/mes/{anio}','ResultadosController@meses')->name('adm.datos.mes');
 
+
+Route::get('/adm/datos/mes/{anio}/{deposito}','ResultadosController@datosMeses');
+
+
+Route::get('/adm/datos/menu', 'ResultadosController@menu')->name('adm.datos.menu');
 //Grafica de resultados  mes
-Route::get('/adm/datos/resultados', 'ResultadosMesController@graficas')->name('adm.datos.resultados');
+Route::get('/adm/datos/resultados/{id}', 'ResultadosController@graficas')->name('adm.datos.resultados');
 
 
 
 //Ver datos
-Route::get('/adm/datos/{asignacion}/{zona}', 'DatosController@region')->name('adm.datos.datos');
+//Route::get('/adm/datos/{id}', 'DatosController@region')->name('adm.datos.datos');
 
-Route::get('/adm/datos/riesgos', function () {
-    return view('adm.datos.riesgos');
-})->name('adm.datos.riesgos');
+Route::get('/adm/datos/depositos/{id}', 'ResultadosController@depositos');
+
+Route::get('/adm/datos/riesgos','ResultadosController@riesgosGrafica')->name('adm.datos.riesgos');
+
+Route::get('/adm/datos/riesgos/obtener/{anio}','ResultadosController@riesgos')->name('adm.datos.riesgos.Obtener');
+
+
+Route::get('/adm/datos/deficiencias/{anio}/{region}', 'ResultadosController@deficiencias')->name('adm.datos.deficiencias');
+
+Route::get('/adm/datos/def/{anio}/{region}', 'ResultadosController@datosDeficiencias')->name('adm.datos.def');
 
 
 
+
+//Usuarios
 
 Route::get('/usr/asignaciones', 'AsignacionUsrController@index')->name('usr.asignaciones.listar');
 

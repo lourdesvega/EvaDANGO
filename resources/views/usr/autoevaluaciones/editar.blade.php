@@ -228,19 +228,19 @@
                 cancelButtonText: 'No',
                 }).then((result) => {
             if (result.isConfirmed) {
-                   
-                        $.ajax({
-                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                            type: "POST",
-                            url: "/usr/evidencias/eliminar/"+id,
-                            data: {id:id},
-                            success: function (data) {
-                                document.getElementById("div"+id).style.display = "none";
-                            },
-                                    error: function() {
-                                        console.log('error!');
-                            },        
-                        });
+            
+                $.ajax({
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    type: "POST",
+                    url: "/usr/evidencias/eliminar/"+id,
+                    data: {id:id},
+                    success: function (data) {
+                        document.getElementById("div"+id).style.display = "none";
+                    },
+                            error: function() {
+                                console.log('error!');
+                    },        
+                });
                     
             }
         });

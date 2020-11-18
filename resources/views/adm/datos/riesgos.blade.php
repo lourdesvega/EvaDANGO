@@ -1,376 +1,223 @@
 @extends('layouts.app')
 @section('content')
-    <script src="{{asset('vendor/chart.js/Chart.js')}}" charset="utf-8"></script>
-    <script src="{{asset('vendor/chart.js/chartjs-plugin-datalabels.min.js')}}" charset="utf-8"></script>
-    <h1 class="h3 mb-2 text-gray-800 text-center">Evolución riesgo alto por región</h1>
-    <br>
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col-lg-6">
-                <div class="card mb-auto">
-                    <a href="{{route('adm.datos.deficiencias')}}">
-                    <canvas id="nacional"></canvas>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card mb-auto">
-                    <canvas id="region1"></canvas>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="card">
-                    <canvas id="region2"></canvas>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card mb-auto">
-                    <canvas id="region3"></canvas>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="card">
-                    <canvas id="region4"></canvas>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card mb-auto">
-                    <canvas id="region5"></canvas>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="card">
-                    <canvas id="region6"></canvas>
-                </div>
-            </div>
-        </div>
-
+<script src="{{asset('vendor/chart.js/Chart.js')}}" charset="utf-8"></script>
+<script src="{{asset('vendor/chart.js/chartjs-plugin-datalabels.min.js')}}" charset="utf-8"></script>
+<h1 class="h3 mb-2 text-gray-800 text-center">Evolución riesgo alto por región </h1>
+<br>
+<div class="form-group row ">
+    <label class="col-sm-2 col-form-label">Años</label>
+    <div class="col-sm-3">
+        <select name="anio" id="anio" class="form-control">
+            @foreach ($anios as $anio)
+            <option>{{$anio->anio}}</option>
+            @endforeach
+        </select>
     </div>
-    <script>
-        // Set new default font family and font color to mimic Bootstrap's default styling
-        Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-        Chart.defaults.global.defaultFontColor = '#858796';
+</div>
 
 
-        // Pie Chart Example
-        var ctx = document.getElementById("nacional");
-        var riesgo = new Chart(ctx, {
-            type: 'line',
 
-            data: {
-                labels: ["Marzo", "Abril", "Mayo", "Junio","Julio"],
-                datasets: [{
-                    data: [1.01, 0.00, 0.00, 2.56, 1.67],
-                    fill: false,
-                    backgroundColor: "rgb(192,80,77)",
-                    borderColor: "rgb(192,80,77)",
-                }],
-                //hoverBackgroundColor: "red",
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'Total',
-                    fontSize: 20,
-                },
-                plugins: {
-                    datalabels: {
-                        align: function(context) {
-                            var value = context.dataset.data[context.dataIndex];
-                            return value > 0 ? 'end' : 'start';
-                        },
-                        anchor: function(context) {
-                            var value = context.dataset.data[context.dataIndex];
-                            return value > 0 ? 'end' : 'start';
-                        },
+<div class="row my-md-n3">
+    <div class="col-md-6 py-md-3 py-sm-3">
+        <div class="card">
+            <a id="0" onclick="deficiencias(this)">
+                <canvas id="nacional"></canvas>
+            </a>
+        </div>
+    </div>
+</div>
 
-                        backgroundColor: function(context) {
-                            return context.dataset.backgroundColor;
-                        },
-                        borderRadius: 4,
-                        color: 'white',
+@foreach ($zonas as $i => $zona)
+@if (($i%2)==0)
+<div class="row my-md-n3">
+    <div class="col-md-6 py-md-3 py-sm-3">
+        <div class="card">
+            <a id="{{$zona->id}}" onclick="deficiencias(this)">
+                <canvas id="{{$zona->nombre}}"></canvas>
+            </a>
+        </div>
+    </div>
+    @else
+    <div class="col-md-6 py-md-3 py-sm-3">
+        <div class="card">
+            <a id="{{$zona->id}}" onclick="deficiencias(this)">
+                <canvas id="{{$zona->nombre}}"></canvas>
+            </a>
+        </div>
+    </div>
+</div>
+@endif
+
+@endforeach
 
 
-                    }
-                }
-            }
-        });
-
-
-        // Pie Chart Example
-        var r1 = document.getElementById("region1");
-        var region1 = new Chart(r1, {
-            type: 'line',
-            data: {
-                labels: ["Marzo", "Abril", "Mayo", "Junio","Julio"],
-                datasets: [{
-                    data: [1.01, 0.00, 0.00, 2.56, 1.67],
-                    fill: false,
-                    backgroundColor: "rgb(192,80,77)",
-                    borderColor: "rgb(192,80,77)",
-                }],
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'Region I',
-                    fontSize: 20,
-                },
-                plugins: {
-                    datalabels: {
-                        align: function(context) {
-                            var value = context.dataset.data[context.dataIndex];
-                            return value > 0 ? 'end' : 'start';
-                        },
-                        anchor: function(context) {
-                            var value = context.dataset.data[context.dataIndex];
-                            return value > 0 ? 'end' : 'start';
-                        },
-
-                        backgroundColor: function(context) {
-                            return context.dataset.backgroundColor;
-                        },
-                        borderRadius: 4,
-                        color: 'white',
-
-
-                    }
-                }
-
-            }
-        });
-
-
-        // Pie Chart Example
-        var r2 = document.getElementById("region2");
-        var region2 = new Chart(r2, {
-            type: 'line',
-            data: {
-                labels: ["Marzo", "Abril", "Mayo", "Junio","Julio"],
-                datasets: [{
-                    data: [1.01, 0.00, 0.00, 2.14, 1.43],
-                    fill: false,
-                    backgroundColor: "rgb(192,80,77)",
-                    borderColor: "rgb(192,80,77)",
-                }],
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'Región II',
-                    fontSize: 20,
-                },
-
-                plugins: {
-                    datalabels: {
-                        align: function(context) {
-                            var value = context.dataset.data[context.dataIndex];
-                            return value > 0 ? 'end' : 'start';
-                        },
-                        anchor: function(context) {
-                            var value = context.dataset.data[context.dataIndex];
-                            return value > 0 ? 'end' : 'start';
-                        },
-
-                        backgroundColor: function(context) {
-                            return context.dataset.backgroundColor;
-                        },
-                        borderRadius: 4,
-                        color: 'white',
-
-
-                    }
-                }
-
-            }
-        });
-
-        // Pie Chart Example
-        var r3 = document.getElementById("region3");
-        var region3 = new Chart(r3, {
-            type: 'line',
-            data: {
-                labels: ["Marzo", "Abril", "Mayo", "Junio","Julio"],
-                datasets: [{
-                    data: [1.01, 0.84, 0.00, 4.17, 1.67],
-                    fill: false,
-                    backgroundColor: "rgb(192,80,77)",
-                    borderColor: "rgb(192,80,77)",
-                }],
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'Región III',
-                    fontSize: 20,
-                },
-                plugins: {
-                    datalabels: {
-                        align: function(context) {
-                            var value = context.dataset.data[context.dataIndex];
-                            return value > 0 ? 'end' : 'start';
-                        },
-                        anchor: function(context) {
-                            var value = context.dataset.data[context.dataIndex];
-                            return value > 0 ? 'end' : 'start';
-                        },
-
-                        backgroundColor: function(context) {
-                            return context.dataset.backgroundColor;
-                        },
-                        borderRadius: 4,
-                        color: 'white',
-
-
-                    }
-                }
-
-            }
-        });
-
-        // Pie Chart Example
-        var r4 = document.getElementById("region4");
-        var region4 = new Chart(r4, {
-            type: 'line',
-            data: {
-                labels: ["Marzo", "Abril", "Mayo", "Junio","Julio"],
-                datasets: [{
-                    data: [0.00, 0.00, 0.00, 0.00, 0.63],
-                    fill: false,
-                    backgroundColor: "rgb(192,80,77)",
-                    borderColor: "rgb(192,80,77)",
-                }],
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'Región IV',
-                    fontSize: 20,
-                },
-                plugins: {
-                    datalabels: {
-                        align: function(context) {
-                            var value = context.dataset.data[context.dataIndex];
-                            return value > 0 ? 'end' : 'start';
-                        },
-                        anchor: function(context) {
-                            var value = context.dataset.data[context.dataIndex];
-                            return value > 0 ? 'end' : 'start';
-                        },
-
-                        backgroundColor: function(context) {
-                            return context.dataset.backgroundColor;
-                        },
-                        borderRadius: 4,
-                        color: 'white',
-
-
-                    }
-                }
-
-            }
-        });
-
-        // Pie Chart Example
-        var r5 = document.getElementById("region5");
-        var region5 = new Chart(r5, {
-            type: 'line',
-            data: {
-                labels: ["Marzo", "Abril", "Mayo", "Junio","Julio"],
-                datasets: [{
-                    data: [1.69, 0.00, 1.69, 5.83, 6.43],
-                    fill: false,
-                    backgroundColor: "rgb(192,80,77)",
-                    borderColor: "rgb(192,80,77)",
-                }],
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'Región V',
-                    fontSize: 20,
-                },
-                plugins: {
-                    datalabels: {
-                        align: function(context) {
-                            var value = context.dataset.data[context.dataIndex];
-                            return value > 0 ? 'end' : 'start';
-                        },
-                        anchor: function(context) {
-                            var value = context.dataset.data[context.dataIndex];
-                            return value > 0 ? 'end' : 'start';
-                        },
-
-                        backgroundColor: function(context) {
-                            return context.dataset.backgroundColor;
-                        },
-                        borderRadius: 4,
-                        color: 'white',
-
-
-                    }
-                }
-
-            }
-        });
-
-        // Pie Chart Example
-        var r6 = document.getElementById("region6");
-        var region6 = new Chart(r6, {
-            type: 'line',
-            data: {
-                labels: ["Marzo", "Abril", "Mayo", "Junio","Julio"],
-                datasets: [{
-                    data: [1.01, 2.04, 0.00, 1.25, 0.63],
-                    fill: false,
-                    backgroundColor: "rgb(192,80,77)",
-                    borderColor: "rgb(192,80,77)",
-                }],
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'Región VI',
-                    fontSize: 20,
-                },
-                plugins: {
-                    datalabels: {
-                        align: function(context) {
-                            var value = context.dataset.data[context.dataIndex];
-                            return value > 0 ? 'end' : 'start';
-                        },
-                        anchor: function(context) {
-                            var value = context.dataset.data[context.dataIndex];
-                            return value > 0 ? 'end' : 'start';
-                        },
-
-                        backgroundColor: function(context) {
-                            return context.dataset.backgroundColor;
-                        },
-                        borderRadius: 4,
-                        color: 'white',
-
-
-                    }
-                }
-
-            }
-        });
-
-
-    </script>
 
 @endsection
 
 @section('scripts')
+<script>
+    var $anio;
+    var $idR = 0;
+    var zonas = {!!$zonas!!};
+    function deficiencias(region) {
+        
+       $idR = region.id;
+       var url='/adm/datos/deficiencias/'+$anio+'/'+$idR;
+       location.href=url;
+ // document.getElementById("field2").value = document.getElementById("field1").value;
+    }
 
+    $(function() {
+    var $select = $('#anio');
+
+    $select.on('change', ejecutar);
+    $select.trigger('change');
+   
+
+    function ejecutar() {
+        $anio = $select.find('option:selected').text();
+        $.ajax({
+            type:'get',
+            url: "/adm/datos/riesgos/obtener/"+$anio,
+            success: function(riesgos){
+                Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+                Chart.defaults.global.defaultFontColor = '#858796';
+                var labels = new Array();
+                var data = new Array();
+
+                riesgos.riesgosNacional.forEach(function(riesgo){
+                        labels.push(riesgo.mes);
+                        data.push(riesgo.ra);
+                });
+
+                console.log(labels);
+                console.log(data);
+
+                var cxt = document.getElementById("nacional");
+                var nacional = new Chart(cxt, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: "Nacional",
+                            data: data,
+                            fill: false,
+                            backgroundColor: "rgb(192,80,77)",
+                            borderColor: "rgb(192,80,77)",
+                        }],
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Nacional',
+                            fontSize: 20,
+                        },
+                        plugins: {
+                            datalabels: {
+                                align: function(context) {
+                                    var value = context.dataset.data[context.dataIndex];
+                                    return value > 0 ? 'end' : 'start';
+                                },
+                                anchor: function(context) {
+                                    var value = context.dataset.data[context.dataIndex];
+                                    return value > 0 ? 'end' : 'start';
+                                },
+
+                                backgroundColor: function(context) {
+                                    return context.dataset.backgroundColor;
+                                },
+                                borderRadius: 4,
+                                color: 'white',
+
+
+                            }
+                        }
+
+                    }
+                });
+
+
+
+
+            //Regiones
+
+                labels = new Array();
+                data = new Array();
+
+
+                zonas.forEach(function(zona){
+                        riesgos.riesgosRegion.forEach(function(riesgo){
+                            if(zona.nombre == riesgo.nombre){
+                                labels.push(riesgo.mes);
+                                data.push(riesgo.ra); 
+                            }
+                        });
+                   
+
+                
+                var cxt = document.getElementById(zona.nombre);
+                var nacional = new Chart(cxt, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: zona.nombre,
+                            data: data,
+                            fill: false,
+                            backgroundColor: "rgb(192,80,77)",
+                            borderColor: "rgb(192,80,77)",
+                        }],
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: zona.nombre,
+                            fontSize: 20,
+                        },
+                        plugins: {
+                            datalabels: {
+                                align: function(context) {
+                                    var value = context.dataset.data[context.dataIndex];
+                                    return value > 0 ? 'end' : 'start';
+                                },
+                                anchor: function(context) {
+                                    var value = context.dataset.data[context.dataIndex];
+                                    return value > 0 ? 'end' : 'start';
+                                },
+
+                                backgroundColor: function(context) {
+                                    return context.dataset.backgroundColor;
+                                },
+                                borderRadius: 4,
+                                color: 'white',
+
+
+                            }
+                        }
+
+                    }
+                });
+
+
+                    labels = new Array();
+                    data = new Array();
+                });
+            
+
+
+
+                
+
+
+
+
+
+            }
+        });
+
+    }
+
+    
+});
+</script>
 @endsection
