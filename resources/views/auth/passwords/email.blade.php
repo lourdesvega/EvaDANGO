@@ -67,7 +67,7 @@
                                             @enderror
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            Restablecer contraseña
+                                            Enviar enlace de restablecimiento
                                         </button>
                                     </form>
                                 </div>

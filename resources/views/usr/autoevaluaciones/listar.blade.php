@@ -55,15 +55,17 @@ Autoevaluación de {{$autoevaluacion->asignacion->mes. ' de '. $autoevaluacion->
 
 
         @forelse ($detalle->evidencias as $evidencia)
-        <div style="width: 100px; 
+        <a href="{{route('evidencias.descargar', $evidencia->id)}}">
+            <div style="width: 100px; 
         white-space: nowrap; 
         overflow: hidden;   
         text-overflow: ellipsis;">
-            <span style="color: blue">
-                <i title="{{$evidencia->nomOriginal}}" class="far fa-file-alt"></i>
-            </span>
-            {{$evidencia->nomOriginal}}
-        </div>
+                <span style="color: blue">
+                    <i title="{{$evidencia->nomOriginal}}" class="far fa-file-alt"></i>
+                </span>
+                {{$evidencia->nomOriginal}}
+            </div>
+        </a>
         @empty
         Sin evidencias
         @endforelse

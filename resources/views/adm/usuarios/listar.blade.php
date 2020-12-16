@@ -46,7 +46,7 @@
     <td>{{$usuario->deposito ==  null ? '' : $usuario->deposito->estado }}</td>
     <td>{{$usuario->deposito ==  null ? '' : $usuario->deposito->municipio}}</td>
     <td>{{$usuario->activo== 1 ? 'Sí' :'No' }} </td>
-    <form id="form{{$deposito->id}}" action="{{route('adm.usuarios.eliminar', $usuario->id)}}" method="POST">
+    <form id="form{{$usuario->id}}" action="{{route('adm.usuarios.eliminar', $usuario->id)}}" method="POST">
         @csrf
         @method('DELETE')
 

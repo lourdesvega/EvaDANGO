@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     protected $attributes = [
         'activo' => 1,
-        'nivel' => 1,
+        'nivel' => 2,
     ];
 
 

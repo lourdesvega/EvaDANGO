@@ -10,11 +10,13 @@ use App\User;
 use App\Deposito;
 use App\DetalleAutoevaluacion;
 use App\Http\Controllers\DetalleController;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AutoevaluacionController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('usr');
     }
 
@@ -24,15 +26,26 @@ class AutoevaluacionController extends Controller
         if ($autoevaluacion->estatus == 1 || $autoevaluacion->deposito_id != auth()->user()->deposito->id) {
             abort(404);
         }
-        //dd( $autoevaluacion->detalleAutoevaluaciones);
         if ($autoevaluacion->detalleAutoevaluaciones->isEmpty()) {
             (new DetalleController)->store($autoevaluacion->id);
         }
-
-        //return redirect()->route('usr.detalle.editar', $detalle->id);
+        $autoevaluacion = Autoevaluacion::findOrFail($id);
 
 
         return view('usr.autoevaluaciones.listar', compact('autoevaluacion'));
+    }
+
+
+    public function show($id)
+    {
+        $autoevaluacion = Autoevaluacion::findOrFail($id);
+        if ($autoevaluacion->estatus != 1 || $autoevaluacion->deposito_id != auth()->user()->deposito->id) {
+            abort(404);
+        }
+        $autoevaluacion = Autoevaluacion::findOrFail($id);
+
+
+        return view('usr.autoevaluaciones.ver', compact('autoevaluacion'));
     }
 
     public function datosAutoevalucion($id)
@@ -40,10 +53,6 @@ class AutoevaluacionController extends Controller
         $autoevaluacion = Autoevaluacion::findOrFail($id);
     }
 
-
-    public function create()
-    {
-    }
 
 
     public function store($id)
@@ -60,19 +69,11 @@ class AutoevaluacionController extends Controller
         }
     }
 
-    public function show($id)
+    public function contar($id)
     {
-        //
-    }
+        $autoevaluacion = Autoevaluacion::find($id);
+        $count = DetalleAutoevaluacion::where('estatus', 0)->where('autoevaluacion_id', $autoevaluacion->id)->count();
 
-
-    public function edit($id)
-    {
-    }
-
-    public function contar($id){
-        $autoevaluacion=Autoevaluacion::find($id);
-        $count = DetalleAutoevaluacion::where('estatus', 0)->where('autoevaluacion_id',$autoevaluacion->id)->count();
         return $count;
     }
 
@@ -92,12 +93,13 @@ class AutoevaluacionController extends Controller
         }
 
         $asignacion->save();
-        
+
+        Alert::success('Autoevaluación', 'Tu autoevaluación ha sido completada');
+        return redirect()->route('usr.asignaciones.listar');
     }
 
 
-    public function destroy($id)
+    public function notificar()
     {
-        //
     }
 }

@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Asignacion;
 use App\Deposito;
-use App\Http\Controllers\AutoevaluacionController;
-
+use App\User;
+use App\Notifications\Autoevaluacion;
+use Illuminate\Support\Facades\Notification;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use Illuminate\Http\Request;
 
 class AsignacionController extends Controller
 {
 
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('adm');
     }
 
     public function index()
     {
-        $asignaciones = Asignacion::all();
-        
+        $asignaciones = Asignacion::orderBy('anio', 'desc')->get();
+
+
         return view('adm.asignaciones.listar', compact('asignaciones'));
     }
 
@@ -52,13 +54,15 @@ class AsignacionController extends Controller
 
         (new AutoevaluacionController)->store($asignacion->id);
 
+        (new AsignacionController)->notificar($asignacion->nota);
+
         Alert::success('Asignación', 'Se ha creado correctamente la asignación');
 
         return redirect()->route('adm.asignaciones.listar');
     }
 
 
-    
+
 
     public function edit($id)
     {
@@ -95,12 +99,21 @@ class AsignacionController extends Controller
     }
 
 
+
+
     public function destroy($id)
     {
         Asignacion::find($id)->delete();
 
-        Alert::success('Asignación', 'Se ha eliminado correctamente el asignacion');
+        Alert::success('Asignación', 'Se ha eliminado correctamente la asignacion');
 
         return redirect()->route('adm.asignaciones.listar');
+    }
+
+
+    public function notificar($mensaje)
+    {
+        $usuarios = User::where('activo', 1)->where('nivel', 2)->get();
+        Notification::send($usuarios, new Autoevaluacion($mensaje));
     }
 }

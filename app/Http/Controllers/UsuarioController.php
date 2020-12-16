@@ -14,13 +14,14 @@ class UsuarioController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('adm');
     }
 
 
     public function index()
     {
-        $usuarios = User::where('nivel', 1)->get();
+        $usuarios = User::where('nivel', 2)->get();
         return view('adm.usuarios.listar', compact('usuarios'));
     }
 

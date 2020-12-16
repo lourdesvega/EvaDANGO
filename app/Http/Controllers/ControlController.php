@@ -12,6 +12,7 @@ class ControlController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('adm');
     }
 
@@ -95,7 +96,13 @@ class ControlController extends Controller
     public function show($id)
     {
         $control = Control::find($id);
-        return view('adm.controles.ver', compact('control'));
+        $control->area_id = $control->area->nombre;
+        if ($control->activo == 1) {
+            $control->activo = "Sí";
+        } else {
+            $control->activo = "No";
+        }
+        return $control;
     }
 
     public function destroy($id)

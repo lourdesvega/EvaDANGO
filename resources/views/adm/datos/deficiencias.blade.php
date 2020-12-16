@@ -2,7 +2,7 @@
 @section('content')
 <script src="{{asset('vendor/chart.js/Chart.js')}}" charset="utf-8"></script>
 <script src="{{asset('vendor/chart.js/chartjs-plugin-datalabels.min.js')}}" charset="utf-8"></script>
-<h1 class="h3 mb-2 text-gray-800 text-center">Total compañia. Deficiencias por Área </h1>
+<h1 class="h3 mb-2 text-gray-800 text-center">Total compañia {{$anio}}. Deficiencias por Área </h1>
 <h1 id="titulo" class="h3 mb-2 text-gray-800 text-center"></h1>
 <br>
 <div class="form-group row ">

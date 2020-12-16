@@ -5,15 +5,13 @@
 <script src="{{asset('vendor/chart.js/chartjs-plugin-datalabels.min.js')}}" charset="utf-8"></script>
 <h1 class="h3 mb-2 text-gray-800 text-center">Resultados gráficos de {{$asignacion->mes.' de '.$asignacion->anio}}</h1>
 <br>
-<nav style="background: white;" class="nav nav-pills nav-justified">
-    <a class="nav-link" href="#">Autoevaluaciones</a>
-    <a class="nav-link" href="#">Resultados por depot</a>
-    <a class="nav-link" href="#">Resultados por mes</a>
-    <a class="nav-link active" href="#">Resultados gráficos</a>
-    <a class="nav-link" href="#">Riesgos gráficos</a>
-</nav>
 
+<nav style="background: white;" class="nav nav-pills nav-justified">
+    <a class="nav-link" href="{{route('adm.autoevaluaciones.listar', $asignacion->id)}}">Autoevaluaciones</a>
+    <a class="nav-link active" href="{{route('adm.datos.resultados', $asignacion->id)}}">Resultados gráficos mes</a>
+</nav>
 <br>
+
 
 <div class="row my-md-n3">
     <div class="col-md-6 py-md-3 py-sm-3">

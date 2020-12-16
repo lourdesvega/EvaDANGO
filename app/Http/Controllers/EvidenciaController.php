@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Evidencia;
+use Illuminate\Support\Facades\Storage;
 
 class EvidenciaController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
     }
@@ -35,23 +43,12 @@ class EvidenciaController extends Controller
         return $evidencia;
     }
 
-    public function show($id)
+    public function descargar($id)
     {
-        //
+        $archivo = Evidencia::find($id);
+        $path = public_path('evidencias').'/'.$archivo->nombre;
+        return response()->download($path, $archivo->nomOriginal);  
     }
-
-
-    public function edit($id)
-    {
-        //
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
 
     public function destroy($id)
     {

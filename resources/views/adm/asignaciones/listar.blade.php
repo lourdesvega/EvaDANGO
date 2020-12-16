@@ -5,7 +5,7 @@
 <br>
 <div class="row">
     <div class="col-md-8 offset-md-10">
-            <a href="{{route('adm.asignaciones.crear')}}" class="btn btn-primary">Crear asignacion</a>
+        <a href="{{route('adm.asignaciones.crear')}}" class="btn btn-primary">Crear asignacion</a>
     </div>
 </div>
 @endsection
@@ -36,27 +36,32 @@
 @section('tbody')
 @foreach ($asignaciones as $asignacion)
 
-<tr onclick="location.href='{{route('adm.autoevaluaciones.listar', $asignacion->id)}}'">
+<tr>
     <td>{{$asignacion->mes}} {{$asignacion->anio}}</td>
-    <td>{{$asignacion->fechaEntrega->isoFormat('d [de] MMMM [de] Y')}}</td>
+    <td>{{$asignacion->fechaEntrega->isoFormat('D [de] MMMM [de] Y')}}</td>
     <td>{{$asignacion->nota}}</td>
     <td><progress value="{{$asignacion->completado}}" max="{{$asignacion->total}}"></progress></td>
     @switch($asignacion->estatus)
     @case(0)
-    <td>Sin completar</td>
+    <td><span style="color: yellow"><i class="fas fa-exclamation-circle"></i></span>{{' '}}Sin completar</td>
     @break
     @case(1)
-    <td>Concluido</td>
+    <td><span style="color: green"><i class="fas fa-check-circle"></i></span>{{' '}}Concluido</td>
     @break
     @endswitch
 
     <td>{{$asignacion->activo == 1 ? 'Sí': 'No'}}</td>
-    <td style="width: 9%">
+    <td style="width: 11%">
         <form id="form{{$asignacion->id}}" method="post"
             action="{{route('adm.asignaciones.eliminar', $asignacion->id)}}">
             @csrf
             @method('DELETE')
 
+            <a href="{{route('adm.autoevaluaciones.listar', $asignacion->id)}}">
+                <span style="color: blue">
+                    <i class="fas fa-chevron-circle-right"></i>
+                </span>
+            </a>
             <a href="{{route('adm.asignaciones.editar', $asignacion->id)}}">
                 <span style="color: blue">
                     <i class="fas fa-pen"></i>

@@ -3,17 +3,14 @@
 @section('ttitle')
 {{'Autoevaluación de ' .$autoevaluacion->deposito->nombre.' de ' .$autoevaluacion->asignacion->mes .' de '.$autoevaluacion->asignacion->anio  }}
 @endsection
-
 @section('buttons')
 <br>
 <nav style="background: white;" class="nav nav-pills nav-justified">
-    <a class="nav-link active" href="#">Autoevaluaciones</a>
-    <a class="nav-link" href="#">Resultados por depot</a>
-    <a class="nav-link" href="#">Resultados por mes</a>
-    <a class="nav-link" href="{{route('adm.datos.resultados', $autoevalucion->id)}}">Resultados gráficos mes</a>
-    <a class="nav-link" href="#">Riesgos gráficos</a>
+    <a class="nav-link" href="{{route('adm.autoevaluaciones.listar', $autoevaluacion->asignacion->id)}}">Autoevaluaciones</a>
+    <a class="nav-link" href="{{route('adm.datos.resultados', $autoevaluacion->asignacion->id)}}">Resultados gráficos mes</a>
 </nav>
 @endsection
+
 
 @section('thead')
 <th>Control</th>
@@ -51,12 +48,14 @@
     </td>
     <td>
         @forelse ($detalle->evidencias as $evidencia)
-        <div class="truncate-text-table">
-            <span style="color: blue">
-                <i title="{{$evidencia->nomOriginal}}" class="far fa-file-alt"></i>
-            </span>
-            {{$evidencia->nomOriginal}}
-        </div>
+        <a href="{{route('evidencias.descargar', $evidencia->id)}}">
+            <div class="truncate-text-table">
+                <span style="color: blue">
+                    <i title="{{$evidencia->nomOriginal}}" class="far fa-file-alt"></i>
+                </span>
+                {{$evidencia->nomOriginal}}
+            </div>
+        </a>
         @empty
         Sin evidencias
         @endforelse

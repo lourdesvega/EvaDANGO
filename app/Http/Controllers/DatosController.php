@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\DB;
 
 class DatosController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function region($id)
     {
         $calificaciones = DB::table('zonas')
@@ -121,45 +127,42 @@ class DatosController extends Controller
     public function deficienciasRegion($anio, $region)
     {
         $deficiencias = DB::table('asignaciones')
-        ->join('autoevaluaciones', 'asignaciones.id', 'autoevaluaciones.asignacion_id')
-        ->join('depositos', 'depositos.id', 'autoevaluaciones.deposito_id')
-        ->join('detalleautoevaluaciones', 'detalleautoevaluaciones.autoevaluacion_id', 'autoevaluaciones.id')
-        ->join('controles', 'controles.id', 'detalleautoevaluaciones.control_id')
-        ->join('areas', 'areas.id', 'controles.area_id')
-        ->selectRaw('areas.nombre, asignaciones.mes , TRUNCATE(SUM(case detalleautoevaluaciones.calificacion when "Riesgo alto" then 1 else 0 end)/(SUM(case detalleautoevaluaciones.calificacion when "Riesgo bajo con observación" then 1 else 0 end)+SUM(case detalleautoevaluaciones.calificacion when "Riesgo bajo" then 1 else 0 end))*(100), 2) as total')
-        ->where('detalleautoevaluaciones.calificacion', '<>', '')
-        ->where('depositos.zona_id', $region)
-        ->where('asignaciones.anio', $anio)
-        ->groupByRaw(' asignaciones.mes, areas.nombre')
-        ->orderBy('asignaciones.mes', 'asc')
-        ->get();
+            ->join('autoevaluaciones', 'asignaciones.id', 'autoevaluaciones.asignacion_id')
+            ->join('depositos', 'depositos.id', 'autoevaluaciones.deposito_id')
+            ->join('detalleautoevaluaciones', 'detalleautoevaluaciones.autoevaluacion_id', 'autoevaluaciones.id')
+            ->join('controles', 'controles.id', 'detalleautoevaluaciones.control_id')
+            ->join('areas', 'areas.id', 'controles.area_id')
+            ->selectRaw('areas.nombre, asignaciones.mes , TRUNCATE(SUM(case detalleautoevaluaciones.calificacion when "Riesgo alto" then 1 else 0 end)/(SUM(case detalleautoevaluaciones.calificacion when "Riesgo bajo con observación" then 1 else 0 end)+SUM(case detalleautoevaluaciones.calificacion when "Riesgo bajo" then 1 else 0 end))*(100), 2) as total')
+            ->where('detalleautoevaluaciones.calificacion', '<>', '')
+            ->where('depositos.zona_id', $region)
+            ->where('asignaciones.anio', $anio)
+            ->groupByRaw(' asignaciones.mes, areas.nombre')
+            ->orderBy('asignaciones.mes', 'asc')
+            ->get();
 
         return $deficiencias;
-
     }
 
     public function deficienciasNacional($anio)
     {
         $deficiencias = DB::table('asignaciones')
-        ->join('autoevaluaciones', 'asignaciones.id', 'autoevaluaciones.asignacion_id')
-        ->join('depositos', 'depositos.id', 'autoevaluaciones.deposito_id')
-        ->join('detalleautoevaluaciones', 'detalleautoevaluaciones.autoevaluacion_id', 'autoevaluaciones.id')
-        ->join('controles', 'controles.id', 'detalleautoevaluaciones.control_id')
-        ->join('areas', 'areas.id', 'controles.area_id')
-        ->selectRaw('areas.nombre, asignaciones.mes , TRUNCATE(SUM(case detalleautoevaluaciones.calificacion when "Riesgo alto" then 1 else 0 end)/(SUM(case detalleautoevaluaciones.calificacion when "Riesgo bajo con observación" then 1 else 0 end)+SUM(case detalleautoevaluaciones.calificacion when "Riesgo bajo" then 1 else 0 end))*100 , 2) as total')
-        ->where('detalleautoevaluaciones.calificacion', '<>', '')
-        ->where('asignaciones.anio', $anio)
-        ->groupByRaw(' asignaciones.mes, areas.nombre')
-        ->orderBy('asignaciones.mes', 'asc')
-        ->get();
+            ->join('autoevaluaciones', 'asignaciones.id', 'autoevaluaciones.asignacion_id')
+            ->join('depositos', 'depositos.id', 'autoevaluaciones.deposito_id')
+            ->join('detalleautoevaluaciones', 'detalleautoevaluaciones.autoevaluacion_id', 'autoevaluaciones.id')
+            ->join('controles', 'controles.id', 'detalleautoevaluaciones.control_id')
+            ->join('areas', 'areas.id', 'controles.area_id')
+            ->selectRaw('areas.nombre, asignaciones.mes , TRUNCATE(SUM(case detalleautoevaluaciones.calificacion when "Riesgo alto" then 1 else 0 end)/(SUM(case detalleautoevaluaciones.calificacion when "Riesgo bajo con observación" then 1 else 0 end)+SUM(case detalleautoevaluaciones.calificacion when "Riesgo bajo" then 1 else 0 end))*100 , 2) as total')
+            ->where('detalleautoevaluaciones.calificacion', '<>', '')
+            ->where('asignaciones.anio', $anio)
+            ->groupByRaw(' asignaciones.mes, areas.nombre')
+            ->orderBy('asignaciones.mes', 'asc')
+            ->get();
 
 
         return $deficiencias;
     }
 
-    public function mesesDeficiencias($anio){
-        
+    public function mesesDeficiencias($anio)
+    {
     }
-
-    
 }

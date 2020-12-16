@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+
+
 <h1 class="h3 mb-2 text-gray-800 text-center">Consultar resultados por año</h1>
 <br>
 <div class="form-group row">
@@ -18,10 +20,17 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col">Año: {{$anio->anio}}</div>
-                    <div class="col"><a>Riesgo alto: <span style="color: red"> <i class="fas fa-chart-line"></i></span></a>
+
+                    <div class="col"><a style="color: grey" href="{{route('adm.datos.riesgos', $anio->anio)}}">Riesgo
+                            alto:
+                            <span style="color: red"> <i class="fas fa-chart-line"></i></span></a>
                     </div>
-                    <div class="col">Resultados por mes: <span style="color: blue"> <i class="fas fa-table"></i></span>
+
+                    <div class="col"><a style="color: grey" href="{{route('adm.datos.mes', $anio->anio)}}">Resultados
+                            por mes: <span style="color: blue"> <i class="fas fa-table"></i></span></a>
                     </div>
+
+
                 </div>
 
             </div>

@@ -12,12 +12,14 @@ class AsignacionUsrController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('usr');
     }
 
     public function index()
     {
-        $autoevaluaciones = auth()->user()->deposito->autoevaluaciones->where('activo',1);
+        $autoevaluaciones = auth()->user()->deposito->autoevaluaciones->where('activo', 1);
+        
         return view('usr.asignaciones.listar', compact('autoevaluaciones'));
     }
 

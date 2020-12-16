@@ -5,7 +5,7 @@
 
 
 
-<h1 class="h3 mb-2 text-gray-800 text-center">Controles de la autoevaluación</h1>
+<h1 class="h3 mb-2 text-gray-800 text-center">Completar control {{$detalle->control->referencial}} de la autoevaluación</h1>
 <br>
 <div class="row">
     <div class="col-sm-9">

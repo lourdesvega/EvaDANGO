@@ -112,23 +112,21 @@ Route::delete('/usr/responsables/{id}', 'ResponsableController@destroy')->name('
 
 
 
-
+//Autoevaluaciones
 
 
 Route::get('/adm/autoevaluaciones/listar/{id}', 'AutoevaluacionAdmController@index')->name('adm.autoevaluaciones.listar');
 
 Route::get('/adm/autoevaluaciones/ver/{id}', 'AutoevaluacionAdmController@show')->name('adm.autoevaluaciones.ver');
 
+Route::delete('/adm/autoevaluaciones/{id}', 'AutoevaluacionAdmController@destroy')->name('adm.autoevaluaciones.eliminar');
 
+Route::post('/adm/autoevaluaciones/notificar', 'AutoevaluacionAdmController@notificar')->name('adm.autoevaluaciones.notificar');
 
+Route::post('/adm/autoevaluaciones/cancelar', 'AutoevaluacionAdmController@cancelar')->name('adm.autoevaluaciones.cancelar');
 
+Route::get('/adm/notify/index','AutoevaluacionAdmController@mensaje');
 
-
-
-
-Route::get('/adm/datos/depositos', function () {
-    return view('adm.datos.depositos');
-})->name('adm.datos.depositos');
 
 
 Route::get('/adm/datos/mes/{anio}','ResultadosController@meses')->name('adm.datos.mes');
@@ -144,11 +142,10 @@ Route::get('/adm/datos/resultados/{id}', 'ResultadosController@graficas')->name(
 
 
 //Ver datos
-//Route::get('/adm/datos/{id}', 'DatosController@region')->name('adm.datos.datos');
 
 Route::get('/adm/datos/depositos/{id}', 'ResultadosController@depositos');
 
-Route::get('/adm/datos/riesgos','ResultadosController@riesgosGrafica')->name('adm.datos.riesgos');
+Route::get('/adm/datos/riesgos/{anio}','ResultadosController@riesgosGrafica')->name('adm.datos.riesgos');
 
 Route::get('/adm/datos/riesgos/obtener/{anio}','ResultadosController@riesgos')->name('adm.datos.riesgos.Obtener');
 
@@ -157,8 +154,22 @@ Route::get('/adm/datos/deficiencias/{anio}/{region}', 'ResultadosController@defi
 
 Route::get('/adm/datos/def/{anio}/{region}', 'ResultadosController@datosDeficiencias')->name('adm.datos.def');
 
+//Descarga de archivos
 
 
+Route::get('/archivos/descarga/{id}', 'EvidenciaController@descargar')->name('evidencias.descargar');
+
+
+//Perfil de usuarios
+
+Route::get('/perfil','PerfilController@show')->name('perfil.mostrar');
+
+Route::put('/perfil/nombre','PerfilController@editName')->name('perfil.editar.nombre');
+
+Route::put('/perfil/contrasenia','PerfilController@editPassword')->name('perfil.editar.contrasenia');
+
+
+Route::get('/archivos/descarga/{id}', 'EvidenciaController@descargar')->name('evidencias.descargar');
 
 //Usuarios
 
@@ -168,6 +179,8 @@ Route::get('/usr/asignaciones', 'AsignacionUsrController@index')->name('usr.asig
 
 
 Route::get('/usr/autoevaluaciones/{id}', 'AutoevaluacionController@index')->name('usr.autoevaluaciones.listar');
+
+Route::get('/usr/autoevaluaciones/mostrar/{id}', 'AutoevaluacionController@show')->name('usr.autoevaluaciones.mostrar');
 
 //Route::get('/usr/autoevaluaciones/{autoevaluacion}/{detalle}/editar', 'AutoevaluacionController@edit')->name('usr.autoevaluaciones.editar');
 
@@ -202,11 +215,6 @@ Route::get('/usr/evidencias/{id}/editar', 'EvidenciaController@edit')->name('usr
 Route::put('/usr/evidencias/{id}', 'EvidenciaController@update')->name('usr.evidencias.actualizar');
 
 Route::post('/usr/evidencias/eliminar/{id}', 'EvidenciaController@destroy')->name('usr.evidencias.eliminar');
-
-
-Route::get('/usr/autoevaluaciones/ver/ya', function () {
-    return view('usr.autoevaluaciones.ver');
-})->name('usr.autoevaluaciones.ver');
 
 
 

@@ -3,12 +3,14 @@
 @section('ttitle', 'Controles de la autoevaluación')
 
 @section('buttons')
+@include('adm.controles.ver')
 <br>
 <div class="row">
     <div class="col-md-8 offset-md-10">
         <a href="{{route('adm.controles.crear')}}" class="btn btn-primary">Crear control</a>
     </div>
 </div>
+
 @endsection
 
 @section('thead')
@@ -38,21 +40,31 @@
 @foreach ($controles as $control)
 <tr>
     <td>{{$control->referencial}}</td>
-    <td>{{$control->riesgosDominio}}</td>
-    <td>{{$control->riesgosClave}}</td>
-    <td>{{$control->objetivo}}</td>
-    <td>{{$control->guia}}</td>
+    <td>
+        {{$control->riesgosDominio}}
+    </td>
+    <td>
+        {{$control->riesgosClave}}
+    </td>
+    <td>
+        <div class="truncate-text-control">{{$control->objetivo}}</div>
+    </td>
+    <td>
+        <div class="truncate-text-control">{{$control->guia}}</div>
+    </td>
     <td>{{$control->activo == 1 ? 'Sí': 'No'}}</td>
     <td>{{$control->area->nombre}}</td>
     <td style="width: 15%">
         <form method="POST" id="form{{$control->id}}" action="{{route('adm.controles.eliminar', $control->id)}}">
             @method('DELETE')
             @csrf
-            <a href="{{route('adm.controles.ver', $control->id)}}">
+            <a class="ver" data-id="{{$control->id}}">
                 <span style="color: yellow">
                     <i class="fas fa-eye"></i>
                 </span>
             </a>
+
+
             <a href="{{route('adm.controles.editar', $control->id)}}">
                 <span style="color: blue">
                     <i class="fas fa-pen"></i>
@@ -98,6 +110,29 @@
         });
  });
 
+ $('.ver').click(function() {
+    $('#modalControl').modal('show');
+    var id = $(this).data('id');
+
+        var destino = $('#destino').val();
+        var msj = $('#msj').val();
+            $('#mensaje').modal('hide');
+            $("#msj").val('');
+            $.ajax({
+            type: "GET",
+            url: "/adm/controles/"+id,
+            success: function (control) {
+                $("#referencial").val(control.referencial);
+                $("#riesgosDominio").val(control.riesgosDominio);
+                $("#riesgosClave").val(control.riesgosClave);
+                $("#objetivo").val(control.objetivo);
+                $("#guia").val(control.guia);
+                $("#area_id").val(control.area_id);
+                $("#activo").val(control.activo);
+            },      
+        });
+        
+ });
 </script>
 
 @endsection

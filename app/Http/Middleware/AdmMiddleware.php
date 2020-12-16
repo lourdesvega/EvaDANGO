@@ -15,9 +15,9 @@ class AdmMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->nivel == 2)
+        if (auth()->check() && auth()->user()->nivel == 1)
             return $next($request);
 
-        abort(404);
+            return redirect('/login');
     }
 }

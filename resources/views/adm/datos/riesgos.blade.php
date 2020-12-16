@@ -9,7 +9,7 @@
     <div class="col-sm-3">
         <select name="anio" id="anio" class="form-control">
             @foreach ($anios as $anio)
-            <option>{{$anio->anio}}</option>
+            <option {{$aniosele == $anio->anio ? 'selected ="selected"': ''}}>{{$anio->anio}}</option>
             @endforeach
         </select>
     </div>
@@ -202,16 +202,6 @@
                     labels = new Array();
                     data = new Array();
                 });
-            
-
-
-
-                
-
-
-
-
-
             }
         });
 

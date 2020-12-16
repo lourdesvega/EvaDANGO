@@ -1,6 +1,9 @@
 @extends('layouts.tabla')
 
-@section('ttitle','Autoevaluación Julio de 2020')
+@section('ttitle')
+{{'Autoevaluación de ' .$autoevaluacion->asignacion->mes .' de '.$autoevaluacion->asignacion->anio  }}
+@endsection
+
 
 
 @section('thead')
@@ -15,7 +18,6 @@
 
 @endsection
 
-
 @section('tfoot')
 <th>Control</th>
 <th>Descripción</th>
@@ -28,204 +30,31 @@
 @endsection
 
 @section('tbody')
+@foreach ($autoevaluacion->detalleAutoevaluaciones as $detalle)
 <tr>
-    <td>FIN_24</td>
-    <td>EXISTENCIA Y VALUACION DE ACTIVOS FIJOS</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>FIN_52</td>
-    <td>2 - Manage Sourcing</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>FIN_64</td>
-    <td>6. PROTECCIÓN DE EFECTIVO Y PAGOS</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>HR_11</td>
-    <td>3. GESTIÓN DE CRÉDITO & RECOLECCIÓN DE EFECTIVO</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>HR_21</td>
-    <td>3. GESTIÓN DE CRÉDITO & RECOLECCIÓN DE EFECTIVO</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>HR_23</td>
-    <td>4. ORDEN DE COMPRA Y RECEPCIÓN DE MERCANCIAS</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>HR_41</td>
-    <td>1. CONTRATACIÓN</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>HR_51</td>
-    <td>2. NÓMINAS Y COMPENSACIONES & BENEFICIOS</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>OPE_11</td>
-    <td>2. NÓMINAS Y COMPENSACIONES & BENEFICIOS</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>OPE_12</td>
-    <td>4. SALIDA DE EMPLEADOS</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>OPE_13</td>
-    <td>1. ADMINISTRACIÓN DEL INVENTARIO</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>OPE_14</td>
-    <td>1. ADMINISTRACIÓN DEL INVENTARIO</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>OPE_22</td>
-    <td>1. ADMINISTRACIÓN DEL INVENTARIO</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>OPE_31</td>
-    <td>1. ADMINISTRACIÓN DEL INVENTARIO</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>SAL_22</td>
-    <td>1. ADMINISTRACIÓN DEL INVENTARIO</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>SAL_23</td>
-    <td>2. PRODUCTOS Y PÉRDIDAS DE MATERIAL</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>SAL_42</td>
-    <td>2 - Manage Sourcing</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
-<tr>
-    <td>SOU_41</td>
-    <td>4. ORDEN DE COMPRA Y RECEPCIÓN DE MERCANCIAS</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-<tr>
-    <td>SOU_44</td>
-    <td>1. ADMINISTRACIÓN DEL INVENTARIO</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
-</tr>
+    <td>{{$detalle->control->referencial}}</td>
+    <td>{{$detalle->control->descripcion}}</td>
+    <td>{{$detalle->calificacion == null ? '':$detalle->calificacion}}</td>
+    <td>{{$detalle->hallazgo == null ? '' : $detalle->hallazgo}}</td>
+    <td>{{$detalle->plan ==  null ? '': $detalle->plan}}</td>
+    <td>{{ $detalle->fechaCompromiso == null ? '' : $detalle->fechaCompromiso->isoFormat('DD [de] MMMM [de] Y')}}</td>
+    <td>{{$detalle->responsable == null ? '': $detalle->responsable->nombre . ' ' . $detalle->responsable->apellidos}}
+    </td>
+    <td>
+        @forelse ($detalle->evidencias as $evidencia)
+        <a href="{{route('evidencias.descargar', $evidencia->id)}}">
+            <div class="truncate-text-table">
+                <span style="color: blue">
+                    <i title="{{$evidencia->nomOriginal}}" class="far fa-file-alt"></i>
+                </span>
+                {{$evidencia->nomOriginal}}
+            </div>
+        </a>
+        @empty
+        Sin evidencias
+        @endforelse
 
-<tr>
-    <td>FIN_22</td>
-    <td>EXISTENCIA Y VALUACION DE ACTIVOS FIJOS</td>
-    <td>Calificación</td>
-    <td>Hallazgos</td>
-    <td>Plan de accion</td>
-    <td>Fecha compromiso</td>
-    <td>Responsable</td>
-    <td>Evidencia</td>
+    </td>
 </tr>
+@endforeach
 @endsection

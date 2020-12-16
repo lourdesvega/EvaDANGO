@@ -13,6 +13,12 @@ use App\Control;
 class ResultadosController extends Controller
 {
 
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('adm');
+    }
     public function menu()
     {
 
@@ -41,12 +47,12 @@ class ResultadosController extends Controller
         return compact('riesgosRegion', 'riesgosNacional');
     }
 
-    public function riesgosGrafica()
+    public function riesgosGrafica($aniosele)
     {
         $anios = Asignacion::select('anio')->distinct('anio')->orderBy('anio', 'desc')->get();
         $zonas = Zona::all();
 
-        return view('adm.datos.riesgos', compact('anios', 'zonas'));
+        return view('adm.datos.riesgos', compact('anios', 'zonas', 'aniosele'));
     }
 
     public function deficiencias($anio, $region)
