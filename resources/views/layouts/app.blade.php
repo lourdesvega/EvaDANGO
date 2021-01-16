@@ -123,7 +123,7 @@
                 <a class="nav-link collapsed" href="{{route('adm.usuarios.listar')}}" data-toggle="collapse"
                     data-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
                     <i class="fas fa-user"></i>
-                    <span>Usuarios</span>
+                    <span>Encargados</span>
                 </a>
                 <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">

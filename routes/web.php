@@ -135,13 +135,32 @@ Route::get('/adm/datos/mes/{anio}','ResultadosController@meses')->name('adm.dato
 Route::get('/adm/datos/mes/{anio}/{deposito}','ResultadosController@datosMeses');
 
 
-Route::get('/adm/datos/menu', 'ResultadosController@menu')->name('adm.datos.menu');
+//DEtalle
+
+Route::get('/adm/datos/detalleAutoevalucion/{id}', 'ResultadosController@detalleAutoevalucion')->name('adm.datos.detalleAutoevalucion');
+
+
 //Grafica de resultados  mes
 Route::get('/adm/datos/resultados/{id}', 'ResultadosController@graficas')->name('adm.datos.resultados');
+
+Route::get('/adm/datos/resultados/{id}/{region}', 'ResultadosController@graficasRegion')->name('adm.datos.resultados.region');
+
+
+
+//Datos Top
+
+Route::get('/adm/datos/topMes/{id}', 'ResultadosController@topMes')->name('adm.datos.top.mes');
+
+Route::get('/adm/datos/topAnio/{anio}', 'ResultadosController@topAnio')->name('adm.datos.top.anio');
+
+
 
 
 
 //Ver datos
+Route::get('/adm/datos/menu', 'ResultadosController@menu')->name('adm.datos.menu');
+
+Route::get('/adm/datos/menu/mes/{anio}', 'ResultadosController@menuMes')->name('adm.datos.menu.mes');
 
 Route::get('/adm/datos/depositos/{id}', 'ResultadosController@depositos');
 
@@ -153,6 +172,15 @@ Route::get('/adm/datos/riesgos/obtener/{anio}','ResultadosController@riesgos')->
 Route::get('/adm/datos/deficiencias/{anio}/{region}', 'ResultadosController@deficiencias')->name('adm.datos.deficiencias');
 
 Route::get('/adm/datos/def/{anio}/{region}', 'ResultadosController@datosDeficiencias')->name('adm.datos.def');
+
+
+//Graficas de riegsos depositos
+Route::get('/adm/datos/deficiencias/mes/{anio}/{region}/{mes}', 'ResultadosController@deficienciasMes')->name('adm.datos.deficiencias.mes');
+
+//Graficas de riesgos deposito
+Route::get('/adm/datos/deficiencias/depot/{anio}/{mes}/{depot}', 'ResultadosController@deficienciasDepot')->name('adm.datos.deficiencias.depot');
+
+
 
 //Descarga de archivos
 

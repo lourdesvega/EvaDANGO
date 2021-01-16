@@ -7,11 +7,6 @@ Autoevaluación por depósito {{$asignacion->mes .' de '.$asignacion->anio}}
 
 @section('buttons')
 <br>
-<nav style="background: white;" class="nav nav-pills nav-justified">
-    <a class="nav-link active" href="{{route('adm.autoevaluaciones.listar', $asignacion->id)}}">Autoevaluaciones</a>
-    <a class="nav-link" href="{{route('adm.datos.resultados', $asignacion->id)}}">Resultados gráficos mes</a>
-
-</nav>
 
 <div class="modal fade" id="mensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -54,7 +49,7 @@ Autoevaluación por depósito {{$asignacion->mes .' de '.$asignacion->anio}}
 <th>Región</th>
 <th>Déposito</th>
 <th>Encargado</th>
-<th>Fecha entrega</th>
+<th>Fecha conclusión</th>
 <th>Estatus</th>
 <th></th>
 <th></th>
@@ -64,7 +59,7 @@ Autoevaluación por depósito {{$asignacion->mes .' de '.$asignacion->anio}}
 <th>Región</th>
 <th>Déposito</th>
 <th>Encargado</th>
-<th>Fecha entrega</th>
+<th>Fecha conclusión</th>
 <th>Estatus</th>
 <th></th>
 <th></th>
@@ -76,7 +71,7 @@ Autoevaluación por depósito {{$asignacion->mes .' de '.$asignacion->anio}}
     <td>{{$autoevaluacion->deposito->zona->nombre}}</td>
     <td>{{$autoevaluacion->deposito->nombre}}</td>
     <td>{{$autoevaluacion->deposito->user->name.' '.$autoevaluacion->deposito->user->apellidos}}</td>
-    <td>{{$autoevaluacion->fechaConclusion == null ? '': $autoevaluacion->fechaConclusion->isoFormat('D [de] MMMM [de] Y')}}
+    <td>{{$autoevaluacion->fechaConclusion == null ? 'Pendiente': $autoevaluacion->fechaConclusion->isoFormat('D [de] MMMM [de] Y')}}
     </td>
     @switch($autoevaluacion->estatus)
     @case(0)

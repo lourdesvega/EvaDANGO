@@ -11,7 +11,7 @@ class Autoevaluacion extends Model
 
     protected $table = 'autoevaluaciones';
 
-    protected $fillable = ['fechaConclusion', 'activo', 'estatus', 'deposito_id', 'asignacion_id'];
+    protected $fillable = ['id', 'fechaConclusion', 'activo', 'estatus', 'deposito_id', 'asignacion_id'];
 
     protected $dates = ['deleted_at'];
 

@@ -18,7 +18,7 @@
 <th>Riesgos de dominio</th>
 <th>Riesgos clave relacionados</th>
 <th>Objetivos de controles</th>
-<th>Guía sobre la actividad de control para mitigar el riesgo</th>
+<th>Guía sobre la actividad...</th>
 <th>Activo</th>
 <th>Área</th>
 <th></th>
@@ -29,7 +29,7 @@
 <th>Riesgos de dominio</th>
 <th>Riesgos clave relacionados</th>
 <th>Objetivos de controles</th>
-<th>Guía sobre la actividad de control para mitigar el riesgo</th>
+<th>Guía sobre la actividad...</th>
 <th>Activo</th>
 <th>Área</th>
 <th></th>
@@ -113,11 +113,6 @@
  $('.ver').click(function() {
     $('#modalControl').modal('show');
     var id = $(this).data('id');
-
-        var destino = $('#destino').val();
-        var msj = $('#msj').val();
-            $('#mensaje').modal('hide');
-            $("#msj").val('');
             $.ajax({
             type: "GET",
             url: "/adm/controles/"+id,

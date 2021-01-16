@@ -2,7 +2,7 @@
 @section('content')
 <script src="{{asset('vendor/chart.js/Chart.js')}}" charset="utf-8"></script>
 <script src="{{asset('vendor/chart.js/chartjs-plugin-datalabels.min.js')}}" charset="utf-8"></script>
-<h1 class="h3 mb-2 text-gray-800 text-center">Evolución riesgo alto por región </h1>
+<h1 class="h3 mb-2 text-gray-800 text-center">Evolución anual de riesgo alto </h1>
 <br>
 <div class="form-group row ">
     <label class="col-sm-2 col-form-label">Años</label>
@@ -122,7 +122,9 @@
                                     var value = context.dataset.data[context.dataIndex];
                                     return value > 0 ? 'end' : 'start';
                                 },
-
+                                formatter: function(value, context) {
+                                    return value + ' %';
+                                },
                                 backgroundColor: function(context) {
                                     return context.dataset.backgroundColor;
                                 },
@@ -188,6 +190,9 @@
                                 backgroundColor: function(context) {
                                     return context.dataset.backgroundColor;
                                 },
+                                formatter: function(value, context) {
+                                    return value + ' %';
+                                 },
                                 borderRadius: 4,
                                 color: 'white',
 

@@ -22,15 +22,21 @@
 <div class="row my-md-n3">
     <div class="col-md-6 py-md-3 py-sm-3">
         <div id="card{{$mes->mes}}" class="card">
-            <canvas id="{{$mes->mes}}"></canvas>
+            <a id="{{$mes->mes}}" onclick="seleccionar(this)">
+                <canvas id="{{"canvas".$mes->mes}}"></canvas>
+            </a>
         </div>
     </div>
     @else
+
     <div class="col-md-6 py-md-3 py-sm-3">
         <div id="card{{$mes->mes}}" class="card">
-            <canvas id="{{$mes->mes}}"></canvas>
+            <a id="{{$mes->mes}}" onclick="seleccionar(this)">
+                <canvas id="{{"canvas".$mes->mes}}"></canvas>
+            </a>
+        </div>
     </div>
-</div>
+
 </div>
 @endif
 
@@ -45,6 +51,16 @@
     var $zona;
     var $idR = 0;
     var meses ={!!$meses!!};
+    var $id_zona
+    function seleccionar(mes) {
+        console.log(mes.id);
+        var anio = {!!$anio!!};
+        if($id_zona!=0){
+            var url='/adm/datos/deficiencias/mes/'+anio+'/'+$id_zona+'/'+mes.id;
+            location.href=url;
+        }
+        
+    }
 $(function() {
     var $select = $('#zona');
 
@@ -54,7 +70,7 @@ $(function() {
 
     function ejecutar() {
         $zona = $select.find('option:selected').text();
-        var $id_zona = $( "#zona" ).val();
+        $id_zona = $( "#zona" ).val();
         var $urll= "/adm/datos/def/"+{{$anio}}+"/"+$id_zona;
         $.ajax({
         type:'get',
@@ -75,14 +91,14 @@ $(function() {
                 });
 
                     // Pie Chart Example
-                document.getElementById(mes.mes).remove();
+                document.getElementById("canvas"+mes.mes).remove();
                 var canvas = document.createElement("canvas");
-                canvas.id = mes.mes; 
-                var idcont= "card"+mes.mes;
+                canvas.id = "canvas"+mes.mes; 
+                var idcont= mes.mes;
                 document.getElementById(idcont).appendChild(canvas);
                 //document.getElementById("titulo").appendChild($zona);
                 $("#titulo").text($zona);
-                var ctx = document.getElementById(mes.mes);
+                var ctx = document.getElementById("canvas"+mes.mes);
                 var myPieChart = new Chart(ctx, {
                     type: 'pie',
                     data: {
@@ -110,12 +126,15 @@ $(function() {
                                 borderRadius: 10,
                                 borderWidth: 2,
                                 color: 'white',
-                                offset: 2,
+                                offset: 15,
                                 display: function (context) {
                                     var dataset = context.dataset;
                                     var count = dataset.data.length;
                                     var value = dataset.data[context.dataIndex];
-                                    return value >= 0;
+                                    return value >= 0.0001;
+                                },
+                                formatter: function(value, context) {
+                                return Math.round(value) + '%';
                                 },
                                 font: {
                                     weight: 'bold'

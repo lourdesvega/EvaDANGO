@@ -63,7 +63,7 @@
                     </div>
                     <div class="col">
                         <div class="row">Fecha entregado: </div>
-                        <div class="row">{{$autoevaluacion->fechaConclusion->isoFormat('DD [de] MMMM [de] Y')}}</div>
+                        <div class="row">{{$autoevaluacion->fechaConclusion == null ? '': $autoevaluacion->fechaConclusion->isoFormat('DD [de] MMMM [de] Y')}}</div>
                     </div>
                     <div class="col">
                         <a style="color: grey" href="{{route('usr.autoevaluaciones.mostrar', $autoevaluacion->id)}}">

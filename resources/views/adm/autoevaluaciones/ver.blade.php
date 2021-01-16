@@ -3,13 +3,6 @@
 @section('ttitle')
 {{'Autoevaluación de ' .$autoevaluacion->deposito->nombre.' de ' .$autoevaluacion->asignacion->mes .' de '.$autoevaluacion->asignacion->anio  }}
 @endsection
-@section('buttons')
-<br>
-<nav style="background: white;" class="nav nav-pills nav-justified">
-    <a class="nav-link" href="{{route('adm.autoevaluaciones.listar', $autoevaluacion->asignacion->id)}}">Autoevaluaciones</a>
-    <a class="nav-link" href="{{route('adm.datos.resultados', $autoevaluacion->asignacion->id)}}">Resultados gráficos mes</a>
-</nav>
-@endsection
 
 
 @section('thead')

@@ -54,7 +54,7 @@ class AsignacionController extends Controller
 
         (new AutoevaluacionController)->store($asignacion->id);
 
-        (new AsignacionController)->notificar($asignacion->nota);
+       // (new AsignacionController)->notificar($asignacion->nota);
 
         Alert::success('Asignación', 'Se ha creado correctamente la asignación');
 
