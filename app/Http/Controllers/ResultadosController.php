@@ -20,7 +20,6 @@ class ResultadosController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('adm');
     }
     public function menu()
     {
@@ -160,7 +159,7 @@ class ResultadosController extends Controller
 
 
         $asignacion = Asignacion::whereHas('autoevaluaciones', function ($query) use ($deposito, $anio) {
-            return $query->where('deposito_id', $deposito)->where('estatus', 1);
+            return $query->where('deposito_id', $deposito);//->where('estatus', 1);
         })->where('anio', $anio)->where('mes', $mes)->first();
 
         $autoevaluacion = Autoevaluacion::where('deposito_id', $deposito)->where('asignacion_id', $asignacion->id)->first();
@@ -185,7 +184,7 @@ class ResultadosController extends Controller
             ->select('detalleautoevaluaciones.*')
             ->where('asignaciones.anio', '<=', $anio)
             ->where('asignaciones.anio', '>=', ($anio - 1))
-            ->where('autoevaluaciones.estatus', 1)
+            //->where('autoevaluaciones.estatus', 1)
             ->where('autoevaluaciones.deposito_id', $deposito)
             ->whereIn('detalleautoevaluaciones.control_id', $coleccion)
             ->orderBy('detalleautoevaluaciones.control_id', 'desc')
@@ -230,25 +229,42 @@ class ResultadosController extends Controller
 
     public function topMes($id)
     {
+        $asignacion = Asignacion::findOrFail($id);
         $depositos = DB::table('asignaciones')
             ->join('autoevaluaciones', 'asignaciones.id', 'autoevaluaciones.asignacion_id')
             ->join('depositos', 'depositos.id', 'autoevaluaciones.deposito_id')
             ->join('zonas', 'zonas.id', 'depositos.zona_id')
             ->join('detalleautoevaluaciones', 'detalleautoevaluaciones.autoevaluacion_id', 'autoevaluaciones.id')
             ->selectRaw('zonas.id as ID, zonas.nombre as region, depositos.nombre, depositos.id,
-            count(case detalleautoevaluaciones.calificacion when "Riesgo bajo" then 1 else null end)*100/count(*) as rb,
-            count(case detalleautoevaluaciones.calificacion when "Riesgo bajo con observación" then 1 else null end)*100/count(*) as rbo,
-            count(case detalleautoevaluaciones.calificacion when "Riesgo alto" then 1 else null end)*100/count(*) as ra')
+            TRUNCATE(count(case detalleautoevaluaciones.calificacion when "Riesgo bajo" then 1 else null end)*100/count(*), 2) as rb,
+            TRUNCATE(count(case detalleautoevaluaciones.calificacion when "Riesgo bajo con observación" then 1 else null end)*100/count(*), 2) as rbo,
+            TRUNCATE(count(case detalleautoevaluaciones.calificacion when "Riesgo alto" then 1 else null end)*100/count(*), 2) as ra')
             ->where('detalleautoevaluaciones.calificacion', '<>', '')
             ->where('asignaciones.id', $id)
             ->groupByRaw('zonas.id, zonas.nombre, depositos.nombre, depositos.id')
             ->get();
-            //dd($depositos);
-           // $ordenados = $depositos->where('ID', 1)->sortByDesc('rb')->take(5);
-            dd($ordenados);
+        //dd($depositos);
+        //$ordenados = $depositos->where('ID', 1)->sortByDesc('rb')->take(5);
+        //dd($ordenados);
+        return view('adm.datos.topMes', compact('depositos', 'asignacion'));
     }
 
     public function topAnio($anio)
     {
+        $depositos = DB::table('asignaciones')
+            ->join('autoevaluaciones', 'asignaciones.id', 'autoevaluaciones.asignacion_id')
+            ->join('depositos', 'depositos.id', 'autoevaluaciones.deposito_id')
+            ->join('zonas', 'zonas.id', 'depositos.zona_id')
+            ->join('detalleautoevaluaciones', 'detalleautoevaluaciones.autoevaluacion_id', 'autoevaluaciones.id')
+            ->selectRaw('zonas.id as ID, zonas.nombre as region, depositos.nombre, depositos.id,
+        count(case detalleautoevaluaciones.calificacion when "Riesgo bajo" then 1 else null end)*100/count(*) as rb,
+        count(case detalleautoevaluaciones.calificacion when "Riesgo bajo con observación" then 1 else null end)*100/count(*) as rbo,
+        count(case detalleautoevaluaciones.calificacion when "Riesgo alto" then 1 else null end)*100/count(*) as ra')
+            ->where('detalleautoevaluaciones.calificacion', '<>', '')
+            ->where('asignaciones.anio', $anio)
+            ->groupByRaw('zonas.id, zonas.nombre, depositos.nombre, depositos.id')
+            ->get();
+
+        return view('adm.datos.topAnio', compact('depositos', 'anio'));
     }
 }

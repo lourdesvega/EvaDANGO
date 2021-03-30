@@ -7,11 +7,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class Autoevaluacion extends Notification
+class NAutoevaluacion extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $mensaje;
+    protected $mensaje;
     /**
      * Create a new notification instance.
      *
@@ -42,11 +42,13 @@ class Autoevaluacion extends Notification
      */
     public function toMail($notifiable)
     {
+
+        $url = url('/usr/asignaciones/');
         return (new MailMessage)
             ->subject('Notificación de entrega de nueva autoevaluación')
             ->line('Hay una nueva autoevaluación por completar y contiene la siguiente nota:')
             ->line('"' . $this->mensaje . '"')
-            ->action('Ir a la autoevaluacion', url('/'));
+            ->action('Ir a la autoevaluacion', url('usr/asignaciones/'));
     }
 
     /**

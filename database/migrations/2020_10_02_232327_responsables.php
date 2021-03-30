@@ -18,11 +18,11 @@ class Responsables extends Migration
             $table->string('nombre');
             $table->string('apellidos');
 
-            $table->unsignedBigInteger('deposito_id'); 
+            $table->unsignedBigInteger('deposito_id');
             $table->foreign('deposito_id')->references('id')->on('depositos');
-           $table->softDeletes();
-           $table->integer('activo');
-           $table->timestamps();
+            $table->softDeletes();
+            $table->integer('activo');
+            $table->timestamps();
         });
     }
 

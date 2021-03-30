@@ -3,11 +3,14 @@
 
 @section('buttons')
 <br>
+@if (auth()->user()->nivel==1)
 <div class="row">
     <div class="col-md-8 offset-md-10">
         <a href="{{route('adm.asignaciones.crear')}}" class="btn btn-primary">Crear asignacion</a>
     </div>
 </div>
+@endif
+
 @endsection
 
 @section('thead')
@@ -36,7 +39,10 @@
 @section('tbody')
 @foreach ($asignaciones as $asignacion)
 
+
+
 <tr>
+
     <td>{{$asignacion->mes}} {{$asignacion->anio}}</td>
     <td>{{$asignacion->fechaEntrega->isoFormat('D [de] MMMM [de] Y')}}</td>
     <td>{{$asignacion->nota}}</td>
@@ -51,7 +57,7 @@
     @endswitch
 
     <td>{{$asignacion->activo == 1 ? 'Sí': 'No'}}</td>
-    <td style="width: 11%">
+    <td style="width: 12%">
         <form id="form{{$asignacion->id}}" method="post"
             action="{{route('adm.asignaciones.eliminar', $asignacion->id)}}">
             @csrf
@@ -62,16 +68,23 @@
                     <i class="fas fa-chevron-circle-right"></i>
                 </span>
             </a>
+
+
+
+            @if (auth()->user()->nivel==1)
+
+
             <a href="{{route('adm.asignaciones.editar', $asignacion->id)}}">
                 <span style="color: blue">
                     <i class="fas fa-pen"></i>
                 </span>
             </a>
-            <button id="{{$asignacion->id}}" type="submit" class="btn btn-link">
+            <button id="{{$asignacion->id}}" type="submit" class="btn btn-link delete-confirm">
                 <span style="color: red">
                     <i class="fas fa-trash-alt"></i>
                 </span>
             </button>
+            @endif
         </form>
     </td>
 </tr>
@@ -104,6 +117,13 @@
          })
         });
  });
+
+
+
+ $('#dataTable').dataTable( {
+  "ordering": false
+} );
+
 
 </script>
 

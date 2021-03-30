@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Asignacion;
 use App\Deposito;
 use App\User;
-use App\Notifications\Autoevaluacion;
-use Illuminate\Support\Facades\Notification;
+use App\Autoevaluacion;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
+use App\Jobs\SendEmail;
+use App\Rules\uniqueAsignacion;
 
 class AsignacionController extends Controller
 {
@@ -16,7 +17,8 @@ class AsignacionController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('adm');
+        //$this->middleware('adm');
+
     }
 
     public function index()
@@ -38,9 +40,11 @@ class AsignacionController extends Controller
         $request->validate([
             'fechaEntrega' => 'required',
             'mes' => 'required',
-            'anio' => 'required',
+            'anio' => ['required', new uniqueAsignacion($request->get('mes'))],
             'nota' => 'required',
         ]);
+
+
 
         $asignacion = new Asignacion([
             'fechaEntrega' => $request->get('fechaEntrega'),
@@ -50,11 +54,15 @@ class AsignacionController extends Controller
             'total' => Deposito::where('activo', 1)->count(),
         ]);
 
-        $asignacion->save();
 
-        (new AutoevaluacionController)->store($asignacion->id);
 
-       // (new AsignacionController)->notificar($asignacion->nota);
+        //  $asignacion->save();
+
+
+        //(new AutoevaluacionController)->store($asignacion->id);
+
+        //    (new AsignacionController)->notificar($asignacion->nota, $asignacion->id);
+
 
         Alert::success('Asignación', 'Se ha creado correctamente la asignación');
 
@@ -77,7 +85,7 @@ class AsignacionController extends Controller
         $request->validate([
             'fechaEntrega' => 'required',
             'mes' => 'required',
-            'anio' => 'required',
+            'anio' => ['required', new uniqueAsignacion($request->validate->mes)],
             'nota' => 'required',
             'activo' => 'required'
         ]);
@@ -111,9 +119,8 @@ class AsignacionController extends Controller
     }
 
 
-    public function notificar($mensaje)
+    public function notificar($mensaje, $id)
     {
-        $usuarios = User::where('activo', 1)->where('nivel', 2)->get();
-        Notification::send($usuarios, new Autoevaluacion($mensaje));
+        dispatch(new SendEmail($mensaje, $id));
     }
 }

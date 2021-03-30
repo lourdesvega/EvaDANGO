@@ -70,7 +70,7 @@
                     <i class="fas fa-pen"></i>
                 </span>
             </a>
-            <button id="{{$control->id}}" class="btn btn-link" type="submit">
+            <button id="{{$control->id}}" class="btn btn-link delete-confirm" type="submit">
                 <span style="color: red">
                     <i class="fas fa-trash-alt"></i>
                 </span>

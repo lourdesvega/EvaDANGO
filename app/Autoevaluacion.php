@@ -39,4 +39,16 @@ class Autoevaluacion extends Model
     {
         return $this->hasMany('App\DetalleAutoevaluacion');
     }
+
+
+    public function evidencias()
+    {
+        return $this->hasManyThrough('App\Evidencia', 'App\DetalleAutoevaluacion',   'autoevaluacion_id', 'detalle_id','id', 'id');
+    }
+
+
+    public function zonas()
+    {
+        return $this->hasOneThrough('App\Deposito', 'App\Zona');
+    }
 }

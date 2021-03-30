@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@if (auth()->user()->nivel==1)
+@if (auth()->user()->nivel==1 || auth()->user()->nivel==3)
 
 <div class="row">
 
@@ -166,48 +166,48 @@
 
 
     @forelse (App\Autoevaluacion::where('estatus','<>',1)->where('deposito_id',auth()->user()->deposito->id)->get() as
-    $autoevaluacion)
-    <div class="col-xl-12 col-md-12 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            {{$autoevaluacion->deposito->nombre}}</div>
-                        <div class="h6 mb-0 font-weight-bold text-gray-800">
-                            <p>Periodo:
-                                {{$autoevaluacion->asignacion->mes.' de '.$autoevaluacion->asignacion->anio}}
-                            </p>
-                            <p>Fecha de entrega:
-                                {{$autoevaluacion->asignacion->fechaEntrega->isoFormat('D [de] MMMM [de] Y')}}
-                            </p>
-                            <p>
-                                Estatus:
-                                @switch($autoevaluacion->estatus)
-                                @case(0)
-                                Sin completar
-                                @break
-                                @case(2)
-                                Devuelta
-                                @break
-                                @endswitch
-                            </p>
-                            <p> <a href="{{route('usr.autoevaluaciones.listar', $autoevaluacion->id)}}">
-                                    Ver autoevaluación <span style="color: blue">
-                                        <i class="fas fa-chevron-circle-right"></i>
-                                    </span>
-                                </a>
-                            </p>
+        $autoevaluacion)
+        <div class="col-xl-12 col-md-12 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                {{$autoevaluacion->deposito->nombre}}</div>
+                            <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                <p>Periodo:
+                                    {{$autoevaluacion->asignacion->mes.' de '.$autoevaluacion->asignacion->anio}}
+                                </p>
+                                <p>Fecha de entrega:
+                                    {{$autoevaluacion->asignacion->fechaEntrega == null ? '': $autoevaluacion->asignacion->fechaEntrega->isoFormat('D [de] MMMM [de] Y')}}
+                                </p>
+                                <p>
+                                    Estatus:
+                                    @switch($autoevaluacion->estatus)
+                                    @case(0)
+                                    Sin completar
+                                    @break
+                                    @case(2)
+                                    Devuelta
+                                    @break
+                                    @endswitch
+                                </p>
+                                <p> <a href="{{route('usr.autoevaluaciones.listar', $autoevaluacion->id)}}">
+                                        Ver autoevaluación <span style="color: blue">
+                                            <i class="fas fa-chevron-circle-right"></i>
+                                        </span>
+                                    </a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    @empty
-    No hay actualizaciones
-    @endforelse
+        @empty
+        No hay actualizaciones
+        @endforelse
 </div>
 @endif
 

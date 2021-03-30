@@ -20,7 +20,6 @@ class AutoevaluacionAdmController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('adm');
     }
 
     public function index($id)

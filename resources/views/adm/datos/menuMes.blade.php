@@ -25,6 +25,11 @@
                             <span style="color: red"> <i class="fas fa-chart-line"></i></span></a>
                     </div>
 
+                    
+                    <div class="col"><a style="color: grey"
+                        href="{{route('adm.datos.top.mes', $autoevaluacion->id)}}">Top mes: <span style="color: rgb(234, 245, 23)"><i class="fas fa-star"></i></span></a>
+                </div>
+
                 </div>
 
             </div>

@@ -13,7 +13,7 @@
 
 <div id="data" class="row">
     <!-- Border Left Utilities -->
-    <div class="col-lg-8">
+    <div class="col-lg-10">
 
         @foreach ($anios as $anio)
         <div data-custom-type="{{$anio->anio}}" class="filtro card mb-4 py-3 border-left-primary">
@@ -28,11 +28,13 @@
                     </div>
 
                     <div class="col"><a style="color: grey"
-                            href="{{route('adm.datos.resultados', $anio->anio)}}">Resultados
+                            href="{{route('adm.datos.mes.anio', $anio->anio)}}">Resultados
                             por mes: <span style="color: blue"> <i class="fas fa-table"></i></span></a>
                     </div>
 
-
+                    <div class="col"><a style="color: grey"
+                            href="{{route('adm.datos.top.anio', $anio->anio)}}">Top año: <span style="color: rgb(234, 245, 23)"><i class="fas fa-star"></i></span></a>
+                    </div>
                 </div>
 
             </div>

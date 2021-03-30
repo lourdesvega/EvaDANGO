@@ -142,8 +142,24 @@
             </li>
             @endif
 
-            @if (auth()->user()->nivel==2)
+            @if (auth()->user()->nivel==3)
 
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('adm.asignaciones.listar')}}">
+                    <i class="fas fa-file-signature"></i>
+                    <span>Asignaciones</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('adm.datos.menu')}}">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Datos</span>
+                </a>
+            </li>
+            @endif
+
+            @if (auth()->user()->nivel==2)
 
             <li class="nav-item">
                 <a class="nav-link" href="{{route('usr.asignaciones.listar')}}">

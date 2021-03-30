@@ -17,7 +17,7 @@ class Asignaciones extends Migration
             $table->bigIncrements('id');
             $table->date('fechaEntrega');
             $table->text('nota');
-            $table->string('mes');
+            $table->enum('mes', ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']);
             $table->year('anio');
             $table->integer('activo');
             $table->integer('estatus');
@@ -25,8 +25,6 @@ class Asignaciones extends Migration
             $table->integer('total');
             $table->softDeletes();
             $table->timestamps();
-
-            
         });
     }
 
@@ -40,5 +38,7 @@ class Asignaciones extends Migration
 
         Schema::dropIfExists('asignaciones');
         Schema::softDeletes('asignaciones');
+        Schema::disableForeignKeyConstraints();
+
     }
 }

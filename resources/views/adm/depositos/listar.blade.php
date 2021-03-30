@@ -51,7 +51,7 @@
                     <i class="fas fa-pen"></i>
                 </span>
             </a>
-            <button id="{{$deposito->id}}" type="submit" class="btn btn-link">
+            <button id="{{$deposito->id}}" type="submit" class="btn btn-link delete-confirm">
                 <span style="color: red">
                     <i class="fas fa-trash-alt"></i>
                 </span>

@@ -15,6 +15,7 @@ class Controles extends Migration
     {
         Schema::create('controles', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->text('descripcion');
             $table->text('referencial');
             $table->text('riesgosDominio');
             $table->text('riesgosClave');

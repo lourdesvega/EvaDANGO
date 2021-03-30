@@ -52,10 +52,32 @@
                         </div>
                     </div>
 
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Tipo usuario</label>
+                        <div class="col-sm-5">
+                            <select id="nivel" name="nivel" class="form-control @error('nivel') is-invalid @enderror"
+                                required autocomplete="nivel" autofocus>
+                                <option {{$usuario->nivel== 2 ? 'selected = "selected"' :'' }} value="2">Responsable
+                                </option>
+                                <option {{$usuario->nivel== 1 ? 'selected = "selected"' :'' }} value="1">Administrador
+                                </option>
+                                <option {{$usuario->nivel== 3 ? 'selected = "selected"' :'' }} value="3">Consultor
+                                </option>
+                            </select>
+                            @error('nivel')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Depósito</label>
                         <div class="col-sm-5">
-                            <select name="deposito" class="form-control">
+                            <select id="deposito" name="deposito" class="form-control">
                                 <option value=""></option>
                                 @foreach($depositos as $deposito)
                                 <option {{$deposito->user_id== $usuario->id ? 'selected="selected"': ''}}
@@ -65,6 +87,7 @@
                             </select>
                         </div>
                     </div>
+
 
                     <div class="form-group row ">
                         <label class="col-sm-4 col-form-label">Activo</label>
@@ -84,7 +107,7 @@
                         </div>
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary">Aceptar</button>
-                        </div>>
+                        </div>
                     </div>
 
                 </form>
@@ -93,4 +116,29 @@
     </div>
 </div>
 
+@endsection
+
+
+@section('scripts')
+<script>
+   
+$(function() {
+
+var nivel = $('#nivel');
+nivel.on('change', ejecutar);
+nivel.trigger('change');
+
+
+function ejecutar() {
+            var op = nivel.find('option:selected').val();
+        if(op==2){
+            $("#deposito").removeAttr("disabled");
+        }else{
+            $("#deposito option[value='']").attr("selected",true);
+            $("#deposito").attr("disabled", "disabled");
+            
+        }
+    }
+});
+</script>
 @endsection

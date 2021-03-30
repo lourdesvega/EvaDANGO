@@ -21,7 +21,7 @@ class UsuarioController extends Controller
 
     public function index()
     {
-        $usuarios = User::where('nivel', 2)->get();
+        $usuarios = User::all();
         return view('adm.usuarios.listar', compact('usuarios'));
     }
 
@@ -40,6 +40,7 @@ class UsuarioController extends Controller
             'apellidos' => 'required',
             'correo' => 'required', 'unique:users',
             'password' => 'required', 'min:8',
+            'nivel' => 'required',
 
         ]);
 
@@ -47,6 +48,7 @@ class UsuarioController extends Controller
             'name' => $request->get('nombre'),
             'apellidos' => $request->get('apellidos'),
             'email' => $request->get('correo'),
+            'nivel' => $request->get('nivel'),
             'password' => Hash::make($request->get('password'))
         ]);
 
@@ -54,7 +56,7 @@ class UsuarioController extends Controller
         (new DepositoController)->editDeposito($request->get('deposito'), $usuario);
 
 
-        Alert::success('Encargado', 'Se ha creado correctamente el encargado');
+        Alert::success('Usuario', 'Se ha creado correctamente el usuario');
 
         return redirect()->route('adm.usuarios.listar');
     }
@@ -76,6 +78,7 @@ class UsuarioController extends Controller
             'apellidos' => 'required',
             'correo' => 'required', 'unique:users',
             'activo' => 'required',
+            'nivel' => 'required',
         ]);
 
         $usuario = User::findOrFail($id);
@@ -84,12 +87,13 @@ class UsuarioController extends Controller
         $usuario->apellidos = $request->get('apellidos');
         $usuario->email = $request->get('correo');
         $usuario->activo = $request->get('activo');
+        $usuario->nivel = $request->get('nivel');
 
         $usuario->save();
 
         (new DepositoController)->editDeposito($request->get('deposito'), $usuario);
 
-        Alert::success('Encargado', 'Se ha modificado correctamente el encargado');
+        Alert::success('Usuario', 'Se ha modificado correctamente el usuario');
         return redirect()->route('adm.usuarios.listar');
     }
 
@@ -98,7 +102,7 @@ class UsuarioController extends Controller
     {
 
         User::find($id)->delete();
-        Alert::success('Encargado', 'Se ha eliminado correctamente el encargado');
+        Alert::success('Usuario', 'Se ha eliminado correctamente el usuario');
         return redirect()->route('adm.usuarios.listar');
     }
 }

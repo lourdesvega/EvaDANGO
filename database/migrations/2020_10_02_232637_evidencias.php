@@ -15,11 +15,14 @@ class Evidencias extends Migration
     {
         Schema::create('evidencias', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('detalle_id'); 
-            $table->foreign('detalle_id')->references('id')->on('detalleAutoevaluaciones');
+            $table->unsignedBigInteger('detalle_id');
+            $table->foreign('detalle_id')->references('id')->on('detalleAutoevaluaciones')->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->string('nombre');
             $table->string('nomOriginal');
-            $table->string('ubicación');
+            $table->string('ubicacion');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -32,6 +35,8 @@ class Evidencias extends Migration
     public function down()
     {
         Schema::dropIfExists('evidencias');
+        Schema::softDeletes('evidencias');
+
 
     }
 }

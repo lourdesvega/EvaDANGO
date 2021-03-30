@@ -5,23 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Evidencia;
 use Illuminate\Support\Facades\Storage;
+use App\Asignacion;
+use App\Autoevaluacion;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EvidenciaController extends Controller
+class EvidenciaController extends Controller implements ShouldQueue
 {
 
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-
-    public function index()
-    {
-    }
-
-    public function create()
-    {
-        //
     }
 
 
@@ -46,8 +39,8 @@ class EvidenciaController extends Controller
     public function descargar($id)
     {
         $archivo = Evidencia::find($id);
-        $path = public_path('evidencias').'/'.$archivo->nombre;
-        return response()->download($path, $archivo->nomOriginal);  
+        $path = public_path('evidencias') . '/' . $archivo->nombre;
+        return response()->download($path, $archivo->nomOriginal);
     }
 
     public function destroy($id)
@@ -60,5 +53,28 @@ class EvidenciaController extends Controller
         }
 
         $evidencia->delete();
+    }
+
+
+
+
+    public function delete($id)
+    {
+        $asignacion = Asignacion::findOrFail($id);
+        $autoevaluaciones = $asignacion->autoevaluaciones;
+        foreach ($autoevaluaciones as $autoevaluacion) {
+            $autoevaluacion = Autoevaluacion::findOrFail($autoevaluacion->id);
+
+            $evidencias = $autoevaluacion->evidencias;
+
+            if ($evidencias != null) {
+                foreach ($evidencias as $evidencia) {
+
+                    (new EvidenciaController)->destroy($evidencia->id);
+                }
+            }
+        }
+
+        return redirect()->route('adm.autoevaluaciones.listar');
     }
 }

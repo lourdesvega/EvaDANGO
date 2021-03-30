@@ -36,29 +36,7 @@ class DatosController extends Controller
         return $calificaciones;
     }
 
-    public function nacional($datos)
-    {
-        $region = [];
-        $total = 0;
-        $rb = 0;
-        $rbo = 0;
-        $ra = 0;
 
-        foreach ($datos as $dato) {
-            $total = $total + $dato->total;
-            $rb = $rb + $dato->rb;
-            $rbo = $rbo + $dato->rbo;
-            $ra = $ra + $dato->ra;
-        }
-
-        $region[0] = [
-            'rb' => ($rb * 100) / $total,
-            'rbo' => ($rbo * 100) / $total,
-            'ra' => ($ra * 100) / $total,
-        ];
-
-        return $region;
-    }
 
     public function riesgoAlto($datos)
     {
@@ -163,7 +141,32 @@ class DatosController extends Controller
         return $deficiencias;
     }
 
-    public function mesesDeficiencias($anio)
+
+
+
+
+
+        public function nacional($datos)
     {
-    }
+        $region = [];
+        $total = 0;
+        $rb = 0;
+        $rbo = 0;
+        $ra = 0;
+
+        foreach ($datos as $dato) {
+            $total = $total + $dato->total;
+            $rb = $rb + $dato->rb;
+            $rbo = $rbo + $dato->rbo;
+            $ra = $ra + $dato->ra;
+        }
+
+        $region[0] = [
+            'rb' => ($rb * 100) / $total,
+            'rbo' => ($rbo * 100) / $total,
+            'ra' => ($ra * 100) / $total,
+        ];
+
+        return $region;
+    } 
 }

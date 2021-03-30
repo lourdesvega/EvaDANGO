@@ -25,6 +25,7 @@ class Depositos extends Migration
             $table->softDeletes();
             $table->integer('activo');
             $table->timestamps();
+
         });
     }
 

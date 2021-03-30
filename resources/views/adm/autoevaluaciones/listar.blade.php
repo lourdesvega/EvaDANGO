@@ -6,6 +6,43 @@ Autoevaluación por depósito {{$asignacion->mes .' de '.$asignacion->anio}}
 @endsection
 
 @section('buttons')
+
+@php
+$detalles = $asignacion->detallesAutoevaluacion;
+$archivos = 0;
+
+foreach ($detalles as $detalle) {
+
+foreach ($detalle->evidencias as $evidencia) {
+$archivos++;
+}
+}
+
+@endphp
+
+@if ($archivos>0)
+
+<div class="row">
+
+    <div class="col-md-4">
+        <a class="btn btn-primary" href="{{route('adm.evidencias.mes', $asignacion->id)}}">
+            Descargar evidencias
+        </a>
+    </div>
+    <div class="col-md-4">
+        <form id="form-evidencias" method="POST" action="{{route('adm.evidencias.eliminar.auto', $asignacion->id)}}">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger delete-evidencias">Eliminar evidencias</button>
+        </form>
+    </div>
+</div>
+
+
+
+@endif
+
+
 <br>
 
 <div class="modal fade" id="mensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -50,8 +87,20 @@ Autoevaluación por depósito {{$asignacion->mes .' de '.$asignacion->anio}}
 <th>Déposito</th>
 <th>Encargado</th>
 <th>Fecha conclusión</th>
+<th> <span style="color: green">
+        <i class="fas fa-check-circle"></i>
+    </span></th>
+<th> <span style="color: yellow">
+        <i class="fas fa-minus-circle"></i>
+    </span></th>
+<th> <span style="color: red">
+        <i class="fas fa-times-circle"></i>
+    </span></th>
 <th>Estatus</th>
+@if (auth()->user()->nivel==1)
 <th></th>
+@endif
+
 <th></th>
 @endsection
 
@@ -60,8 +109,20 @@ Autoevaluación por depósito {{$asignacion->mes .' de '.$asignacion->anio}}
 <th>Déposito</th>
 <th>Encargado</th>
 <th>Fecha conclusión</th>
+<th> <span style="color: green">
+        <i class="fas fa-check-circle"></i>
+    </span></th>
+<th> <span style="color: yellow">
+        <i class="fas fa-minus-circle"></i>
+    </span></th>
+<th> <span style="color: red">
+        <i class="fas fa-times-circle"></i>
+    </span></th>
 <th>Estatus</th>
+@if (auth()->user()->nivel==1)
 <th></th>
+@endif
+
 <th></th>
 @endsection
 
@@ -73,49 +134,72 @@ Autoevaluación por depósito {{$asignacion->mes .' de '.$asignacion->anio}}
     <td>{{$autoevaluacion->deposito->user->name.' '.$autoevaluacion->deposito->user->apellidos}}</td>
     <td>{{$autoevaluacion->fechaConclusion == null ? 'Pendiente': $autoevaluacion->fechaConclusion->isoFormat('D [de] MMMM [de] Y')}}
     </td>
+    @php
+    @endphp
+    <td>
+        {{$autoevaluacion->detalleAutoevaluaciones->where('calificacion','Riesgo bajo')->count()}}
+    </td>
+    <td>
+        {{$autoevaluacion->detalleAutoevaluaciones->where('calificacion','Riesgo bajo con observacion')->count()}}
+    </td>
+    <td>
+        {{$autoevaluacion->detalleAutoevaluaciones->where('calificacion','Riesgo alto')->count()}}
+    </td>
     @switch($autoevaluacion->estatus)
     @case(0)
     <td id="estatus_{{$autoevaluacion->id}}"><span style="color: blue"><i class="fas fa-edit"></i></span><span
             class="txt_estatus">En edición </span></td>
+    @if (auth()->user()->nivel==1)
     <td id="accion_{{$autoevaluacion->id}}"><a data-toggle="modal" data-target="#mensaje"
             data-whatever="{{$autoevaluacion->deposito->user->email}}" value="0" data-id="{{$autoevaluacion->id}}"
             style="color: white" class="btn btn-info btn-sm modificar">Notificar</a> </td>
+    @endif
+
     @break
     @case(1)
     <td id="estatus_{{$autoevaluacion->id}}"><span style="color: green"><i class="fas fa-check-circle"></i></span><span
             class="txt_estatus">Concluido</span></td>
+    @if (auth()->user()->nivel==1)
     <td id="accion_{{$autoevaluacion->id}}"><a data-toggle="modal" data-target="#mensaje"
             data-whatever="{{$autoevaluacion->deposito->user->email}}" value="2" data-id="{{$autoevaluacion->id}}"
             style="color: white" class="btn btn-danger btn-sm modificar">Devolver</a></td>
+    @endif
+
     @break
     @case(2)
     <td id="estatus_{{$autoevaluacion->id}}"><span style="color: red"><i class="fas fa-undo"></i></span><span
             class="txt_estatus">Devuelto</span>
     </td>
+    @if (auth()->user()->nivel==1)
     <td id="accion_{{$autoevaluacion->id}}"><a value="1" data-id="{{$autoevaluacion->id}}" style="color: white"
             class="btn btn-warning btn-sm modificar">Cancelar</a></td>
+    @endif
+
     @break
 
     @endswitch
     <td>
-        <form method="POST" id="form{{$autoevaluacion->id}}"
-            action="{{route('adm.autoevaluaciones.eliminar', $autoevaluacion->id)}}">
-            @method('DELETE')
-            @csrf
+        <div class="btn-group">
+
             <a href="{{route('adm.autoevaluaciones.ver', $autoevaluacion->id)}}">
                 <span style="color: blue">
                     <i class="fas fa-chevron-circle-right"></i>
                 </span>
             </a>
-
-            <button id="{{$autoevaluacion->id}}" class="btn btn-link delete-confirm" type="submit">
-                <span style="color: red">
-                    <i class="fas fa-trash-alt"></i>
-                </span>
-            </button>
-        </form>
+            @if (auth()->user()->nivel==1)
+            <form method="POST" id="form{{$autoevaluacion->id}}"
+                action="{{route('adm.autoevaluaciones.eliminar', $autoevaluacion->id)}}">
+                @method('DELETE')
+                @csrf
+                <button id="{{$autoevaluacion->id}}" class="btn btn-link delete-confirm" type="submit">
+                    <span style="color: red">
+                        <i class="fas fa-trash-alt"></i>
+                    </span>
+                </button>
+            </form>
+            @endif
+        </div>
     </td>
-
 </tr>
 @endforeach
 @endsection
@@ -142,6 +226,29 @@ Autoevaluación por depósito {{$asignacion->mes .' de '.$asignacion->anio}}
                 }).then((result) => {
             if (result.isConfirmed) {
                 document.getElementById("form"+idAuto).submit();
+            } 
+                
+         })
+        });
+
+
+        $('body').on('click', '.delete-evidencias', function (event) {
+            event.preventDefault();
+        const url = $(this).attr('href');
+
+            var idAuto = this.id;
+                Swal.fire({
+                title: 'Evidencias',
+                text: "¿Desea eliminar las evidencias de la autoevaluación",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí',
+                cancelButtonText: 'No',
+                }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById("form-evidencias").submit();
             } 
                 
          })

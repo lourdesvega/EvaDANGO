@@ -6,13 +6,14 @@
 <br>
 <div class="row">
     <div class="col-md-8 offset-md-10">
-        <a href="{{route('adm.usuarios.crear')}}" class="btn btn-primary">Crear encargado</a>
+        <a href="{{route('adm.usuarios.crear')}}" class="btn btn-primary">Crear usuario</a>
     </div>
 </div>
 @endsection
 
 @section('thead')
-<th>Encargado</th>
+<th>Nombre</th>
+<th>Nivel</th>
 <th>Correo</th>
 <th>Depósito</th>
 <th>Región</th>
@@ -24,7 +25,8 @@
 @endsection
 
 @section('tfoot')
-<th>Encargado</th>
+<th>Nombre</th>
+<th>Nivel</th>
 <th>Correo</th>
 <th>Depósito</th>
 <th>Región</th>
@@ -40,6 +42,19 @@
 <tr>
 
     <td>{{$usuario->name}} {{$usuario->apellidos}}</td>
+    <td>@switch($usuario->nivel)
+        @case(1)
+        Administrador
+        @break
+        @case(2)
+        Responsable
+        @break
+        @case(3)
+        Consultor
+        @break
+
+        @endswitch
+    </td>
     <td>{{$usuario->email}}</td>
     <td>{{$usuario->deposito ==  null ? '' : $usuario->deposito->nombre }}</td>
     <td>{{$usuario->deposito ==  null ? '' : $usuario->deposito->zona->nombre }}</td>

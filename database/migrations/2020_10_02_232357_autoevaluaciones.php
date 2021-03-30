@@ -18,7 +18,9 @@ class Autoevaluaciones extends Migration
             $table->unsignedBigInteger('deposito_id'); 
             $table->foreign('deposito_id')->references('id')->on('depositos');
             $table->unsignedBigInteger('asignacion_id'); 
-            $table->foreign('asignacion_id')->references('id')->on('asignaciones');
+            $table->foreign('asignacion_id')->references('id')->on('asignaciones')->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->date('fechaConclusion')->nullable();
             $table->integer('estatus');
             $table->softDeletes();
@@ -37,5 +39,8 @@ class Autoevaluaciones extends Migration
     {
         Schema::dropIfExists('autoevaluaciones');
         Schema::softDeletes('autoevaluaciones');
+
     }
+
+    
 }

@@ -35,7 +35,7 @@ class Asignacion extends Model
             'asignacion_id', 
             'autoevaluacion_id', 
             'id', 
-            'id' 
+            'id',
         );
     }
 }
