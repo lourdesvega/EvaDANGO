@@ -56,12 +56,12 @@ class AsignacionController extends Controller
 
 
 
-        //  $asignacion->save();
+        $asignacion->save();
 
 
-        //(new AutoevaluacionController)->store($asignacion->id);
+        (new AutoevaluacionController)->store($asignacion->id);
 
-        //    (new AsignacionController)->notificar($asignacion->nota, $asignacion->id);
+        (new AsignacionController)->notificar($asignacion->nota, $asignacion->id);
 
 
         Alert::success('Asignación', 'Se ha creado correctamente la asignación');
@@ -111,7 +111,9 @@ class AsignacionController extends Controller
 
     public function destroy($id)
     {
-        Asignacion::find($id)->delete();
+        (new EvidenciaController)->delete($id);
+        Asignacion::find($id)->forceDelete();
+
 
         Alert::success('Asignación', 'Se ha eliminado correctamente la asignacion');
 

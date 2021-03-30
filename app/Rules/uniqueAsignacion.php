@@ -29,9 +29,10 @@ class uniqueAsignacion implements Rule
      */
     public function passes($attribute, $value)
     {
-        $asignacion = Asignacion::where('anio', '=', $value)->where('mes', '=', $this->mes)->get();
-        
-        return $asignacion == null;
+
+        $asignacion = Asignacion::where('anio', $value)->where('mes', $this->mes)->get();
+
+        return $asignacion->toArray()===[];
     }
 
     /**
