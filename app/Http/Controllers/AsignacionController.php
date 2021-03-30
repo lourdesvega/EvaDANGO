@@ -111,7 +111,9 @@ class AsignacionController extends Controller
 
     public function destroy($id)
     {
-        Asignacion::find($id)->delete();
+        (new EvidenciaController)->delete($id);
+        Asignacion::find($id)->forceDelete();
+
 
         Alert::success('Asignación', 'Se ha eliminado correctamente la asignacion');
 
