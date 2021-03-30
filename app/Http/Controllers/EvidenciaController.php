@@ -75,6 +75,6 @@ class EvidenciaController extends Controller implements ShouldQueue
             }
         }
 
-        return redirect()->route('adm.autoevaluaciones.listar');
+        return redirect()->route('adm.autoevaluaciones.listar', $id);
     }
 }
