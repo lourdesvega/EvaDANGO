@@ -33,6 +33,6 @@ class ZipController extends Controller
             }
         }
         $zip->close();
-        return response()->download($zip_file);
+        return response()->download($zip_file)->deleteFileAfterSend(true);
     }
 }
