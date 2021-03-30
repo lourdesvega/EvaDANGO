@@ -21,15 +21,14 @@ $archivos++;
 @endphp
 
 @if ($archivos>0)
-
-<div class="row">
-
-    <div class="col-md-4">
+<br>
+<div class="row justify-content-end">
+    <div class="col-md-2">
         <a class="btn btn-primary" href="{{route('adm.evidencias.mes', $asignacion->id)}}">
             Descargar evidencias
         </a>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-2">
         <form id="form-evidencias" method="POST" action="{{route('adm.evidencias.eliminar.auto', $asignacion->id)}}">
             @csrf
             @method('DELETE')
